@@ -123,7 +123,7 @@ class RabbitMQClient:
                 for match in matches:
                     data.add(match)
 
-        #print(data)
+        print(data)
         await self.send_data_to_queue(data)
         
         await message.ack()
