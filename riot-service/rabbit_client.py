@@ -14,13 +14,29 @@ ENDPOINTS = {
 }
 
 class RabbitMQClient:
-    def __init__(self, loop):
+    def __init__(self, loop, redisObj):
         self.loop = loop
         self.connection = None
         self.channel = None
         self.queue = None
+        self.redisObj = redisObj
         # Start the consumer automatically
         self.loop.create_task(self.consume())
+
+    def get_last_10_json(self, user_id):
+        # Use LRANGE to get the last 10 elements of the list
+        records = self.redisObj.lrange(f'user:{user_id}:records', 0, 9)
+        # Convert the strings back to JSON objects
+        return [json.loads(record) for record in records]
+
+    def store_last_10_json(self, user_id, json_object):
+        # Convert the JSON object to a string
+        json_str = json.dumps(json_object)
+        
+        # LPUSH adds the new JSON object to the beginning of the list
+        # LTRIM trims the list to the last 10 elements
+        self.redisObj.lpush(f'user:{user_id}:records', json_str)
+        self.redisObj.ltrim(f'user:{user_id}:records', 0, 9)
 
     async def fetch_data_from_api(self, action, params=None):
         async with aiohttp.ClientSession() as session:
@@ -75,7 +91,25 @@ class RabbitMQClient:
         elif action == "MATCHES_BY_RIOT_ID":
             params = [msg_json['gameName'], msg_json['tagLine']]
             acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+
+            if self.redisObj.exists(acc['puuid']):
+                data = self.get_last_10_json(acc['puuid'])
+            else:
+                data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
+            
+            for match in data:
+                self.store_last_10_json(acc['puuid'], match)
+        elif action == "REFRESH_MATCHES_BY_RIOT_ID":
+            params = [msg_json['gameName'], msg_json['tagLine']]
+            acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
             data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
+
+            for match in data:
+                self.store_last_10_json(acc['puuid'], match)
+        elif action == "NEXT_20_MATCHES":
+            params = [msg_json['gameName'], msg_json['tagLine']]
+            acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid'], msg_json['matchStartIndex']])
         elif action == "NEW_SNAPSHOT_DATA":
             params = [msg_json['snapshotTimeThreshold']]
             accs = await self.fetch_data_from_api("CHALL_ACCS", [])
