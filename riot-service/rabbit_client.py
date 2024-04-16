@@ -6,9 +6,12 @@ from aio_pika import connect_robust, Message
 
 API_KEY = "RGAPI-153f72e3-dfbf-41b6-8929-1be5d2bc46f6"
 ENDPOINTS = {
-    "ACC_BY_RIOT_ID": "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/"
+    "ACC_BY_RIOT_ID": "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",
+    "CHALL_ACCS": "https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I",
+    "MATCH_BY_ID": "https://europe.api.riotgames.com/lol/match/v5/matches/",
+    "MATCHES_BY_PUUID": "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/",
+    "ACC_BY_SUMM_ID": "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/"
 }
-
 
 class RabbitMQClient:
     def __init__(self, loop):
@@ -19,7 +22,7 @@ class RabbitMQClient:
         # Start the consumer automatically
         self.loop.create_task(self.consume())
 
-    async def fetch_data_from_api(self, endpoint, params=None):
+    async def fetch_data_from_api(self, action, params=None):
         async with aiohttp.ClientSession() as session:
             params_str = ""
             for (index, p) in enumerate(params):
@@ -27,9 +30,12 @@ class RabbitMQClient:
                 if index < len(params) - 1:
                     params_str += "/"
 
-            print(f'{endpoint}{params_str}?api_key={API_KEY}')
+            if action == "MATCHES_BY_PUUID":
+                params_str += "/ids"
 
-            async with session.get(f'{endpoint}{params_str}?api_key={API_KEY}') as response:
+            #print(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}')
+
+            async with session.get(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}') as response:
                 data = await response.json()
                 return data
 
@@ -59,20 +65,31 @@ class RabbitMQClient:
         
         msg = message.body.decode()
         msg_json = json.loads(msg)
-        print(msg_json)
-
         await self.validate_message(msg_json)
 
         action = msg_json['action']
 
         if action == "ACC_BY_RIOT_ID":
             params = [msg_json['gameName'], msg_json['tagLine']]
-        else:
-            params = []
+            data = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+        elif action == "MATCHES_BY_RIOT_ID":
+            params = [msg_json['gameName'], msg_json['tagLine']]
+            acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
+        elif action == "NEW_SNAPSHOT_DATA":
+            params = [msg_json['snapshotTimeThreshold']]
+            accs = await self.fetch_data_from_api("CHALL_ACCS", [])
 
+            data = set()
 
-        data = await self.fetch_data_from_api(ENDPOINTS[action], params)
-        print(data)
+            for acc in accs:
+                acc_with_puuid = await self.fetch_data_from_api("ACC_BY_SUMM_ID", [acc['summonerId']])
+                matches = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc_with_puuid['puuid']])
+
+                for match in matches:
+                    data.add(match)
+
+        #print(data)
         await self.send_data_to_queue(data)
         
         await message.ack()

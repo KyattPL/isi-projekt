@@ -1,17 +1,32 @@
 action_schema = {
     "type": "object",
     "properties": {
-        "action": {"type": "string"},
+        "action": {"enum": ["ACC_BY_RIOT_ID", "MATCHES_BY_RIOT_ID", "NEW_SNAPSHOT_DATA"]},
         "gameName": {"type": "string"},
-        "tagLine": {"type": "string"}
+        "tagLine": {"type": "string"},
+        "snapshotTimeThreshold": {"type": "string"},
     },
     "required": ["action"],
-    "if": {
-        "properties": {
-            "action": {"const": "ACC_BY_RIOT_ID"}
+    "anyOf": [
+        {
+            "if": {
+                "properties": {
+                    "action": {"enum": ["ACC_BY_RIOT_ID", "MATCHES_BY_RIOT_ID"]}
+                }
+            },
+            "then": {
+                "required": ["gameName", "tagLine"]
+            }   
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": {"const": "NEW_SNAPSHOT_DATA"}
+                }
+            },
+            "then": {
+                "required": ["snapshotTimeThreshold"]
+            }   
         }
-    },
-    "then": {
-        "required": ["gameName", "tagLine"]
-    }
+    ],
 }
