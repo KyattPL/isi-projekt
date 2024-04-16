@@ -1,9 +1,14 @@
 import aiohttp
-import asyncio
 import json
 import jsonschema
 import schemas
 from aio_pika import connect_robust, Message
+
+API_KEY = "RGAPI-153f72e3-dfbf-41b6-8929-1be5d2bc46f6"
+ENDPOINTS = {
+    "ACC_BY_RIOT_ID": "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/"
+}
+
 
 class RabbitMQClient:
     def __init__(self, loop):
@@ -14,9 +19,17 @@ class RabbitMQClient:
         # Start the consumer automatically
         self.loop.create_task(self.consume())
 
-    async def fetch_data_from_api(self):
+    async def fetch_data_from_api(self, endpoint, params=None):
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://euw1.api.riotgames.com/riot/account/v1/accounts/by-riot-id/KyattPL/EUW?api_key=RGAPI-153f72e3-dfbf-41b6-8929-1be5d2bc46f6') as response:
+            params_str = ""
+            for (index, p) in enumerate(params):
+                params_str += p
+                if index < len(params) - 1:
+                    params_str += "/"
+
+            print(f'{endpoint}{params_str}?api_key={API_KEY}')
+
+            async with session.get(f'{endpoint}{params_str}?api_key={API_KEY}') as response:
                 data = await response.json()
                 return data
 
@@ -44,26 +57,26 @@ class RabbitMQClient:
 
     async def process_incoming_message(self, message):
         
-        action = message.body.decode()
-        await self.validate_message(action)
+        msg = message.body.decode()
+        msg_json = json.loads(msg)
+        print(msg_json)
 
-        if action == "fetch_data":
-            data = await self.fetch_data_from_api()
-            await self.send_data_to_queue(data)
+        await self.validate_message(msg_json)
+
+        action = msg_json['action']
+
+        if action == "ACC_BY_RIOT_ID":
+            params = [msg_json['gameName'], msg_json['tagLine']]
+        else:
+            params = []
+
+
+        data = await self.fetch_data_from_api(ENDPOINTS[action], params)
+        print(data)
+        await self.send_data_to_queue(data)
         
         await message.ack()
 
     async def consume(self):
         await self.connect_and_consume()
         await self.queue.consume(self.process_incoming_message, no_ack=False)
-
-# Example usage
-# if __name__ == "__main__":
-#     loop = asyncio.get_event_loop()
-#     rabbit_client = RabbitMQClient(loop)
-#     try:
-#         loop.run_forever()
-#     except KeyboardInterrupt:
-#         print("Closing RabbitMQ client...")
-#         loop.run_until_complete(rabbit_client.connection.close())
-#         loop.close()
