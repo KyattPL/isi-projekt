@@ -4,7 +4,7 @@ import jsonschema
 import schemas
 from aio_pika import connect_robust, Message
 
-API_KEY = "RGAPI-153f72e3-dfbf-41b6-8929-1be5d2bc46f6"
+API_KEY = "RGAPI-4526512a-99f9-457a-be29-389f54020c2c"
 ENDPOINTS = {
     "ACC_BY_RIOT_ID": "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",
     "CHALL_ACCS": "https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I",
@@ -72,17 +72,22 @@ class RabbitMQClient:
             #message_data = json.loads(action)
             jsonschema.validate(instance=action, schema=schemas.action_schema)
             print("Message is valid.")
+            return True
         except jsonschema.exceptions.ValidationError as e:
             print(f"Message is invalid: {e}")
+            return False
         except json.JSONDecodeError:
             print("Message is not a valid JSON.")
+            return False
 
     async def process_incoming_message(self, message):
         
         msg = message.body.decode()
         msg_json = json.loads(msg)
-        await self.validate_message(msg_json)
-
+        
+        if not await self.validate_message(msg_json):
+            return
+        
         action = msg_json['action']
 
         if action == "ACC_BY_RIOT_ID":
@@ -110,22 +115,16 @@ class RabbitMQClient:
             params = [msg_json['gameName'], msg_json['tagLine']]
             acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
             data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid'], msg_json['matchStartIndex']])
-        elif action == "NEW_SNAPSHOT_DATA":
-            params = [msg_json['snapshotTimeThreshold']]
-            accs = await self.fetch_data_from_api("CHALL_ACCS", [])
+        elif action == "CHALL_ACCS":
+            data = await self.fetch_data_from_api("CHALL_ACCS")
+        elif action == "ACC_BY_SUMM_ID":
+            params = [msg_json['summId']]
+            data = await self.fetch_data_from_api("ACC_BY_SUMM_ID", params)
+        elif action == "MATCHES_BY_PUUID":
+            params = [msg_json['puuid']]
+            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
 
-            data = set()
-
-            for acc in accs:
-                acc_with_puuid = await self.fetch_data_from_api("ACC_BY_SUMM_ID", [acc['summonerId']])
-                matches = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc_with_puuid['puuid']])
-
-                for match in matches:
-                    data.add(match)
-
-        print(data)
         await self.send_data_to_queue(data)
-        
         await message.ack()
 
     async def consume(self):

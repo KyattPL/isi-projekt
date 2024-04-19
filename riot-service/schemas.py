@@ -1,9 +1,11 @@
 action_schema = {
     "type": "object",
     "properties": {
-        "action": {"enum": ["ACC_BY_RIOT_ID", "MATCHES_BY_RIOT_ID", "REFRESH_MATCHES_BY_RIOT_ID", "NEW_SNAPSHOT_DATA", "NEXT_20_MATCHES"]},
+        "action": {"enum": ["ACC_BY_RIOT_ID", "MATCHES_BY_RIOT_ID", "REFRESH_MATCHES_BY_RIOT_ID", "NEXT_20_MATCHES", "CHALL_ACCS", "ACC_BY_SUMM_ID", "MATCHES_BY_PUUID"]},
         "gameName": {"type": "string"},
         "tagLine": {"type": "string"},
+        "summId": {"type": "string"},
+        "puuid": {"type": "string"},
         "snapshotTimeThreshold": {"type": "string"},
         "matchStartIndex": {"type": "integer", "minimum": 0}
     },
@@ -22,21 +24,31 @@ action_schema = {
         {
             "if": {
                 "properties": {
-                    "action": {"const": "NEW_SNAPSHOT_DATA"}
-                }
-            },
-            "then": {
-                "required": ["snapshotTimeThreshold"]
-            }   
-        },
-        {
-            "if": {
-                "properties": {
                     "action": {"const": "NEXT_20_MATCHES"}
                 }
             },
             "then": {
                 "required": ["matchStartIndex"]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": {"const": "ACC_BY_SUMM_ID"}
+                }
+            },
+            "then": {
+                "required": ["summId"]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": {"const": "MATCHES_BY_PUUID"}
+                }
+            },
+            "then": {
+                "required": ["puuid"]
             }
         }
     ],
