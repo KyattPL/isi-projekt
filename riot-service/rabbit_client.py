@@ -67,10 +67,10 @@ class RabbitMQClient:
         await self.queue.consume(self.process_incoming_message, no_ack=False)
         return self.connection
 
-    async def validate_message(self, action):
+    async def validate_message(self, action, schema):
         try:
             #message_data = json.loads(action)
-            jsonschema.validate(instance=action, schema=schemas.action_schema)
+            jsonschema.validate(instance=action, schema=schema)
             print("Message is valid.")
             return True
         except jsonschema.exceptions.ValidationError as e:
@@ -85,7 +85,7 @@ class RabbitMQClient:
         msg = message.body.decode()
         msg_json = json.loads(msg)
         
-        if not await self.validate_message(msg_json):
+        if not await self.validate_message(msg_json, schemas.action_schema):
             return
         
         action = msg_json['action']
@@ -123,6 +123,9 @@ class RabbitMQClient:
         elif action == "MATCHES_BY_PUUID":
             params = [msg_json['puuid']]
             data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
+
+        if not await self.validate_message(data, schemas.reply_schema):
+            return
 
         await self.send_data_to_queue(data)
         await message.ack()

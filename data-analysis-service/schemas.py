@@ -1,4 +1,4 @@
-action_schema = {
+riot_service_request_schema = {
     "type": "object",
     "properties": {
         "action": {"enum": ["ACC_BY_RIOT_ID", "MATCHES_BY_RIOT_ID", "REFRESH_MATCHES_BY_RIOT_ID", "NEXT_20_MATCHES", "CHALL_ACCS", "ACC_BY_SUMM_ID", "MATCHES_BY_PUUID"]},
@@ -54,4 +54,4 @@ action_schema = {
     ],
 }
 
-reply_schema = {}
+riot_service_reply_schema = {}
