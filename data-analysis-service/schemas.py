@@ -1,13 +1,14 @@
 riot_service_request_schema = {
     "type": "object",
     "properties": {
-        "action": {"enum": ["ACC_BY_RIOT_ID", "MATCHES_BY_RIOT_ID", "REFRESH_MATCHES_BY_RIOT_ID", "NEXT_20_MATCHES", "CHALL_ACCS", "ACC_BY_SUMM_ID", "MATCHES_BY_PUUID"]},
+        "action": {"enum": ["ACC_BY_RIOT_ID", "MATCHES_BY_RIOT_ID", "REFRESH_MATCHES_BY_RIOT_ID", "NEXT_20_MATCHES", "CHALL_ACCS", "ACC_BY_SUMM_ID", "MATCHES_BY_PUUID", "MATCHES_BY_PUUID_24HRS", "MATCH_DATA_BY_MATCH_ID"]},
         "gameName": {"type": "string"},
         "tagLine": {"type": "string"},
         "summId": {"type": "string"},
         "puuid": {"type": "string"},
-        "snapshotTimeThreshold": {"type": "string"},
-        "matchStartIndex": {"type": "integer", "minimum": 0}
+        "snapshotTimeThreshold": {"type": "integer", "minimum": 0},
+        "matchStartIndex": {"type": "integer", "minimum": 0},
+        "matchId": {"type": "string"}
     },
     "required": ["action"],
     "anyOf": [
@@ -49,6 +50,26 @@ riot_service_request_schema = {
             },
             "then": {
                 "required": ["puuid"]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": {"const": "MATCHES_BY_PUUID_24HRS"}
+                }
+            },
+            "then": {
+                "required": ["puuid", "snapshotTimeThreshold"]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": {"const": "MATCH_DATA_BY_MATCH_ID"}
+                }
+            },
+            "then": {
+                "required": ["matchId"]
             }
         }
     ],

@@ -4,7 +4,7 @@ import jsonschema
 import schemas
 from aio_pika import connect_robust, Message
 
-API_KEY = "RGAPI-4526512a-99f9-457a-be29-389f54020c2c"
+API_KEY = "RGAPI-2fc4b8df-44bf-4811-8f73-9999b42c4e0b"
 ENDPOINTS = {
     "ACC_BY_RIOT_ID": "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",
     "CHALL_ACCS": "https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I",
@@ -41,10 +41,11 @@ class RabbitMQClient:
     async def fetch_data_from_api(self, action, params=None):
         async with aiohttp.ClientSession() as session:
             params_str = ""
-            for (index, p) in enumerate(params):
-                params_str += p
-                if index < len(params) - 1:
-                    params_str += "/"
+            if params is not None:
+                for (index, p) in enumerate(params):
+                    params_str += p
+                    if index < len(params) - 1:
+                        params_str += "/"
 
             if action == "MATCHES_BY_PUUID":
                 params_str += "/ids"
@@ -55,10 +56,10 @@ class RabbitMQClient:
                 data = await response.json()
                 return data
 
-    async def send_data_to_queue(self, data):
+    async def send_data_to_queue(self, data, reply_to):
         data_bytes = json.dumps(data).encode()
         message = Message(body=data_bytes)
-        await self.channel.default_exchange.publish(message, routing_key="lol.data.reply")
+        await self.channel.default_exchange.publish(message, routing_key=reply_to)
 
     async def connect_and_consume(self):
         self.connection = await connect_robust(host="localhost", port=5672, loop=self.loop)
@@ -123,11 +124,20 @@ class RabbitMQClient:
         elif action == "MATCHES_BY_PUUID":
             params = [msg_json['puuid']]
             data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
+        elif action == "MATCHES_BY_PUUID_24HRS":
+            params = [msg_json['puuid'], msg_json['snapshotTimeThreshold']]
+            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
+        elif action == "MATCH_DATA_BY_MATCH_ID":
+            params = [msg_json['matchId']]
+            data = await self.fetch_data_from_api("MATCH_BY_ID", params)
 
         if not await self.validate_message(data, schemas.reply_schema):
             return
 
-        await self.send_data_to_queue(data)
+        await self.send_data_to_queue(data, message.reply_to)
+
+        print("got here")
+
         await message.ack()
 
     async def consume(self):

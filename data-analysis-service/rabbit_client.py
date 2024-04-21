@@ -1,3 +1,4 @@
+import asyncio
 import json
 import jsonschema
 import schemas
@@ -10,6 +11,7 @@ class RabbitMQClient:
         self.channel = None
         self.queues = {}
         self.loop.create_task(self.consume())
+        self.response = None
 
     async def connect_and_consume(self):
         self.connection = await connect_robust(host="localhost", port=5672, loop=self.loop)
@@ -38,11 +40,8 @@ class RabbitMQClient:
         
         if not await self.validate_message(msg_json, schema):
             return
-        
-        #print(msg_json)
-        # action = msg_json['action']
 
-        # await self.send_data_to_queue(data)
+        self.response = msg_json
         await message.ack()
 
     async def consume(self):
@@ -50,9 +49,28 @@ class RabbitMQClient:
 
     async def send_data_to_riot_service(self, data):
         data_bytes = json.dumps(data).encode()
-        message = Message(body=data_bytes)
+        message = Message(body=data_bytes, reply_to=self.queues["lol.data.reply"].name)
 
         if not await self.validate_message(data, schemas.riot_service_request_schema):
             return
 
         await self.channel.default_exchange.publish(message, routing_key="lol.data.request")
+
+        while self.response is None:
+          await asyncio.sleep(0.1)
+          #self.connection.process_data_events(time_limit=None)
+
+        resp = self.response
+        self.response = None
+        return resp
+
+    # async def wait_for_response(self):
+    #     async for message in self.queues["lol.data.reply"]:
+    #         print(message)
+    #         try:
+    #             async with message.process():
+    #                 # Process the message
+    #                 response = json.loads(message.body.decode())
+    #                 return response
+    #         except Exception as e:
+    #             print(f"Error processing message: {e}")
