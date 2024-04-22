@@ -45,9 +45,13 @@ async def fetch_match_ids(rabbit_client, accs_puuids, seconds_passed):
 
 async def fetch_match_data(rabbit_client, match_ids):
     matches_data = []
+    index = 0
     for match_id in match_ids:
+        if index % 95 == 0:
+            await asyncio.sleep(120)
         resp = await send_data_to_service(rabbit_client, Action.MATCH_DATA_BY_MATCH_ID, {"matchId": match_id})
         matches_data.append(resp)
+        index += 1
     return matches_data
 
 
@@ -60,6 +64,8 @@ async def insert_matches_into_db(matches):
     db.create_matches_table()
 
     for match in matches:
+        print(match)
+
         patch = match['info']['gameVersion'].split('.')
         patch = patch[0] + '.' + patch[1]
         gameDuration = match['info']['gameDuration']
@@ -70,9 +76,28 @@ async def insert_matches_into_db(matches):
                             p['champExperience'], p['goldEarned'], p['totalDamageDealtToChampions'], p['totalDamageTaken'],
                             p['totalHeal'], p['totalMinionsKilled'], p['visionScore'], p['win'])
 
+    db.create_snapshot_table()
+
+    avg_per_champ = db.calculate_avg_per_champion(snapshotId+1)
+
+    for champion, avg_data in avg_per_champ.items():
+        db.insert_snapshot(
+            champion,
+            avg_data['avg_kills'],
+            avg_data['avg_deaths'],
+            avg_data['avg_assists'],
+            avg_data['avg_champExperience'],
+            avg_data['avg_goldEarned'],
+            avg_data['avg_totalDamageDealtToChampions'],
+            avg_data['avg_totalDamageTaken'],
+            avg_data['avg_totalHeal'],
+            avg_data['avg_totalMinionsKilled'],
+            avg_data['avg_visionScore']
+        )
+
     with open("last_snapshot_info.json", 'w') as file:
         json.dump({'snapshotId': snapshotId+1,
-                  'timeOfLastSnapshot': datetime.datetime.now()}, file, indent=4)
+                  'timeOfLastSnapshot': json.dumps(datetime.datetime.now().isoformat())}, file, indent=4)
 
 
 async def send_messages(rabbit_client):
@@ -106,7 +131,7 @@ async def main():
     rabbit_client = RabbitMQClient(loop)
 
     # Schedule send_messages to run at a specific time every day
-    time = dt.combine(datetime.date.today(), datetime.time(16, 51))
+    time = dt.combine(datetime.date.today(), datetime.time(21, 26))
     while True:
         try:
             await run_at(time, send_messages(rabbit_client))
