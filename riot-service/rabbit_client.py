@@ -11,7 +11,7 @@ from request_actions import ActionType
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename="riot-service.log", level=logging.INFO)
 
-API_KEY = "RGAPI-2fc4b8df-44bf-4811-8f73-9999b42c4e0b"
+API_KEY = "RGAPI-30e77236-4c19-423b-ad3f-9c0253d3c2c4"
 
 ENDPOINTS = {
     ActionType.ACC_BY_RIOT_ID: "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",
@@ -20,6 +20,7 @@ ENDPOINTS = {
     ActionType.MATCHES_BY_PUUID: "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/",
     ActionType.ACC_BY_SUMM_ID: "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/"
 }
+
 
 class RabbitMQClient:
     def __init__(self, loop, redisObj):
@@ -36,7 +37,7 @@ class RabbitMQClient:
 
     def store_last_10_json(self, user_id, json_object):
         json_str = json.dumps(json_object)
-        
+
         self.redisObj.lpush(f'user:{user_id}:records', json_str)
         self.redisObj.ltrim(f'user:{user_id}:records', 0, 9)
 
@@ -54,7 +55,8 @@ class RabbitMQClient:
 
             urlEnding = f"&{queryParams}" if queryParams != "" else ""
 
-            logger.info(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}{urlEnding}')
+            logger.info(
+                f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}{urlEnding}')
 
             async with session.get(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}{urlEnding}') as response:
                 data = await response.json()
@@ -101,12 +103,12 @@ class RabbitMQClient:
     async def process_incoming_message(self, message):
         msg = message.body.decode()
         msg_json = json.loads(msg)
-        
+
         if not await self.validate_message(msg_json, schemas.action_schema):
             logger.error("Invalid message received. Rejecting.")
             await message.reject()
             return
-        
+
         action = ActionType(msg_json['action'])
         strategy = self.get_strategy(action)
 
@@ -118,7 +120,7 @@ class RabbitMQClient:
         data = await strategy.execute(self, msg_json)
 
         if not await self.validate_message(data, schemas.reply_schema):
-            logger.error("Invalid data generated. Rejecting.")            
+            logger.error("Invalid data generated. Rejecting.")
             await message.reject()
             return
 
@@ -128,10 +130,10 @@ class RabbitMQClient:
     # async def process_incoming_message(self, message):
     #     msg = message.body.decode()
     #     msg_json = json.loads(msg)
-        
+
     #     if not await self.validate_message(msg_json, schemas.action_schema):
     #         return
-        
+
     #     action = msg_json['action']
 
     #     if action == "ACC_BY_RIOT_ID":
@@ -145,7 +147,7 @@ class RabbitMQClient:
     #             data = self.get_last_10_json(acc['puuid'])
     #         else:
     #             data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
-            
+
     #         for match in data:
     #             self.store_last_10_json(acc['puuid'], match)
     #     elif action == "REFRESH_MATCHES_BY_RIOT_ID":
