@@ -50,7 +50,7 @@ class RabbitMQClient:
             if action == "MATCHES_BY_PUUID":
                 params_str += "/ids"
 
-            #print(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}')
+            print(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}')
 
             async with session.get(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}') as response:
                 data = await response.json()
@@ -135,8 +135,6 @@ class RabbitMQClient:
             return
 
         await self.send_data_to_queue(data, message.reply_to)
-
-        print("got here")
 
         await message.ack()
 

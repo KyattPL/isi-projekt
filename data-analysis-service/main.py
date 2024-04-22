@@ -61,7 +61,7 @@ async def main():
     rabbit_client = RabbitMQClient(loop)
 
     # Schedule send_messages to run at a specific time every day
-    time = dt.combine(datetime.date.today(), datetime.time(1, 27))
+    time = dt.combine(datetime.date.today(), datetime.time(12, 17))
     while True:
         try:
             await run_at(time, send_messages(rabbit_client))
