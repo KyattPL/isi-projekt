@@ -1,8 +1,13 @@
 import asyncio
 import json
 import jsonschema
+import jsonschema.exceptions
 import schemas
 from aio_pika import connect_robust, Message
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename='data-analysis-service.log', level=logging.INFO)
 
 class RabbitMQClient:
     def __init__(self, loop):
@@ -17,28 +22,29 @@ class RabbitMQClient:
         self.connection = await connect_robust(host="localhost", port=5672, loop=self.loop)
         self.channel = await self.connection.channel()
         self.queues["lol.data.reply"] = await self.channel.declare_queue("lol.data.reply", durable=False)
-        # self.queues["lol.data.request"] = await self.channel.declare_queue("lol.data.request", durable=False)
-        await self.queues["lol.data.reply"].consume(lambda msg: self.process_incoming_message(msg, schemas.riot_service_reply_schema), no_ack=False)
+        await self.queues["lol.data.reply"].consume(self.process_incoming_message, no_ack=False)
         return self.connection
 
     async def validate_message(self, action, schema):
         try:
             jsonschema.validate(instance=action, schema=schema)
-            print("Message is valid.")
+            logger.info("Message is valid.")
             return True
         except jsonschema.exceptions.ValidationError as e:
-            print(f"Message is invalid: {e}")
+            logger.error(f"Message is invalid: {e}")
             return False
         except json.JSONDecodeError:
-            print("Message is not a valid JSON.")
+            logger.error("Message is not a valid JSON.")
             return False
 
-    async def process_incoming_message(self, message, schema):
+    async def process_incoming_message(self, message):
         
         msg = message.body.decode()
         msg_json = json.loads(msg)
         
-        if not await self.validate_message(msg_json, schema):
+        if not await self.validate_message(msg_json, schemas.riot_service_reply_schema):
+            logging.error("Received invalid message. Ignoring.")
+            await message.reject(requeue=False)
             return
 
         self.response = msg_json
@@ -52,25 +58,18 @@ class RabbitMQClient:
         message = Message(body=data_bytes, reply_to=self.queues["lol.data.reply"].name)
 
         if not await self.validate_message(data, schemas.riot_service_request_schema):
+            logging.error("Message is invalid. Not sending to Riot service.")
             return
 
         await self.channel.default_exchange.publish(message, routing_key="lol.data.request")
 
         while self.response is None:
           await asyncio.sleep(0.1)
-          #self.connection.process_data_events(time_limit=None)
+
+        if not await self.validate_message(self.response, schemas.riot_service_reply_schema):
+            logging.error("Response from Riot service is invalid.")
+            return
 
         resp = self.response
         self.response = None
         return resp
-
-    # async def wait_for_response(self):
-    #     async for message in self.queues["lol.data.reply"]:
-    #         print(message)
-    #         try:
-    #             async with message.process():
-    #                 # Process the message
-    #                 response = json.loads(message.body.decode())
-    #                 return response
-    #         except Exception as e:
-    #             print(f"Error processing message: {e}")

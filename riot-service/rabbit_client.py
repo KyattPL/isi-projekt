@@ -1,16 +1,24 @@
 import aiohttp
 import json
 import jsonschema
+import logging
 import schemas
 from aio_pika import connect_robust, Message
 
+import request_actions as RA
+from request_actions import ActionType
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename="riot-service.log", level=logging.INFO)
+
 API_KEY = "RGAPI-2fc4b8df-44bf-4811-8f73-9999b42c4e0b"
+
 ENDPOINTS = {
-    "ACC_BY_RIOT_ID": "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",
-    "CHALL_ACCS": "https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I",
-    "MATCH_BY_ID": "https://europe.api.riotgames.com/lol/match/v5/matches/",
-    "MATCHES_BY_PUUID": "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/",
-    "ACC_BY_SUMM_ID": "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/"
+    ActionType.ACC_BY_RIOT_ID: "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",
+    ActionType.CHALL_ACCS: "https://euw1.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/CHALLENGER/I",
+    ActionType.MATCH_DATA_BY_MATCH_ID: "https://europe.api.riotgames.com/lol/match/v5/matches/",
+    ActionType.MATCHES_BY_PUUID: "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/",
+    ActionType.ACC_BY_SUMM_ID: "https://euw1.api.riotgames.com/lol/summoner/v4/summoners/"
 }
 
 class RabbitMQClient:
@@ -20,39 +28,35 @@ class RabbitMQClient:
         self.channel = None
         self.queue = None
         self.redisObj = redisObj
-        # Start the consumer automatically
         self.loop.create_task(self.consume())
 
     def get_last_10_json(self, user_id):
-        # Use LRANGE to get the last 10 elements of the list
         records = self.redisObj.lrange(f'user:{user_id}:records', 0, 9)
-        # Convert the strings back to JSON objects
         return [json.loads(record) for record in records]
 
     def store_last_10_json(self, user_id, json_object):
-        # Convert the JSON object to a string
         json_str = json.dumps(json_object)
         
-        # LPUSH adds the new JSON object to the beginning of the list
-        # LTRIM trims the list to the last 10 elements
         self.redisObj.lpush(f'user:{user_id}:records', json_str)
         self.redisObj.ltrim(f'user:{user_id}:records', 0, 9)
 
-    async def fetch_data_from_api(self, action, params=None):
+    async def fetch_data_from_api(self, action, urlParams=None, queryParams=""):
         async with aiohttp.ClientSession() as session:
             params_str = ""
-            if params is not None:
-                for (index, p) in enumerate(params):
+            if urlParams is not None:
+                for (index, p) in enumerate(urlParams):
                     params_str += p
-                    if index < len(params) - 1:
+                    if index < len(urlParams) - 1:
                         params_str += "/"
 
-            if action == "MATCHES_BY_PUUID":
+            if action == ActionType.MATCHES_BY_PUUID:
                 params_str += "/ids"
 
-            print(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}')
+            urlEnding = f"&{queryParams}" if queryParams != "" else ""
 
-            async with session.get(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}') as response:
+            logger.info(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}{urlEnding}')
+
+            async with session.get(f'{ENDPOINTS[action]}{params_str}?api_key={API_KEY}{urlEnding}') as response:
                 data = await response.json()
                 return data
 
@@ -70,73 +74,112 @@ class RabbitMQClient:
 
     async def validate_message(self, action, schema):
         try:
-            #message_data = json.loads(action)
             jsonschema.validate(instance=action, schema=schema)
-            print("Message is valid.")
+            logger.info("Message is valid.")
             return True
         except jsonschema.exceptions.ValidationError as e:
-            print(f"Message is invalid: {e}")
+            logger.error(f"Message is invalid: {e}")
             return False
         except json.JSONDecodeError:
-            print("Message is not a valid JSON.")
+            logger.error("Message is not a valid JSON.")
             return False
 
+    def get_strategy(self, action):
+        strategies = {
+            ActionType.ACC_BY_RIOT_ID: RA.AccByRiotIdStrategy(),
+            ActionType.MATCHES_BY_RIOT_ID: RA.MatchesByRiotIdStrategy(),
+            ActionType.REFRESH_MATCHES_BY_RIOT_ID: RA.RefreshMatchesByRiotIdStrategy(),
+            ActionType.NEXT_20_MATCHES: RA.Next20MatchesStrategy(),
+            ActionType.CHALL_ACCS: RA.ChallAccsStrategy(),
+            ActionType.ACC_BY_SUMM_ID: RA.AccBySummIdStrategy(),
+            ActionType.MATCHES_BY_PUUID: RA.MatchesByPuuidStrategy(),
+            ActionType.MATCHES_BY_PUUID_24HRS: RA.MatchesByPuuid24HStrategy(),
+            ActionType.MATCH_DATA_BY_MATCH_ID: RA.MatchDataByMatchIdStrategy()
+        }
+        return strategies.get(action, None)
+
     async def process_incoming_message(self, message):
-        
         msg = message.body.decode()
         msg_json = json.loads(msg)
         
         if not await self.validate_message(msg_json, schemas.action_schema):
+            logger.error("Invalid message received. Rejecting.")
+            await message.reject()
             return
         
-        action = msg_json['action']
+        action = ActionType(msg_json['action'])
+        strategy = self.get_strategy(action)
 
-        if action == "ACC_BY_RIOT_ID":
-            params = [msg_json['gameName'], msg_json['tagLine']]
-            data = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
-        elif action == "MATCHES_BY_RIOT_ID":
-            params = [msg_json['gameName'], msg_json['tagLine']]
-            acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+        if strategy is None:
+            logger.error(f"No strategy found for action: {action.value}")
+            await message.reject()
+            return
 
-            if self.redisObj.exists(acc['puuid']):
-                data = self.get_last_10_json(acc['puuid'])
-            else:
-                data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
-            
-            for match in data:
-                self.store_last_10_json(acc['puuid'], match)
-        elif action == "REFRESH_MATCHES_BY_RIOT_ID":
-            params = [msg_json['gameName'], msg_json['tagLine']]
-            acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
-            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
-
-            for match in data:
-                self.store_last_10_json(acc['puuid'], match)
-        elif action == "NEXT_20_MATCHES":
-            params = [msg_json['gameName'], msg_json['tagLine']]
-            acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
-            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid'], msg_json['matchStartIndex']])
-        elif action == "CHALL_ACCS":
-            data = await self.fetch_data_from_api("CHALL_ACCS")
-        elif action == "ACC_BY_SUMM_ID":
-            params = [msg_json['summId']]
-            data = await self.fetch_data_from_api("ACC_BY_SUMM_ID", params)
-        elif action == "MATCHES_BY_PUUID":
-            params = [msg_json['puuid']]
-            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
-        elif action == "MATCHES_BY_PUUID_24HRS":
-            params = [msg_json['puuid'], msg_json['snapshotTimeThreshold']]
-            data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
-        elif action == "MATCH_DATA_BY_MATCH_ID":
-            params = [msg_json['matchId']]
-            data = await self.fetch_data_from_api("MATCH_BY_ID", params)
+        data = await strategy.execute(self, msg_json)
 
         if not await self.validate_message(data, schemas.reply_schema):
+            logger.error("Invalid data generated. Rejecting.")            
+            await message.reject()
             return
 
         await self.send_data_to_queue(data, message.reply_to)
-
         await message.ack()
+
+    # async def process_incoming_message(self, message):
+    #     msg = message.body.decode()
+    #     msg_json = json.loads(msg)
+        
+    #     if not await self.validate_message(msg_json, schemas.action_schema):
+    #         return
+        
+    #     action = msg_json['action']
+
+    #     if action == "ACC_BY_RIOT_ID":
+    #         params = [msg_json['gameName'], msg_json['tagLine']]
+    #         data = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+    #     elif action == "MATCHES_BY_RIOT_ID":
+    #         params = [msg_json['gameName'], msg_json['tagLine']]
+    #         acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+
+    #         if self.redisObj.exists(acc['puuid']):
+    #             data = self.get_last_10_json(acc['puuid'])
+    #         else:
+    #             data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
+            
+    #         for match in data:
+    #             self.store_last_10_json(acc['puuid'], match)
+    #     elif action == "REFRESH_MATCHES_BY_RIOT_ID":
+    #         params = [msg_json['gameName'], msg_json['tagLine']]
+    #         acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
+
+    #         for match in data:
+    #             self.store_last_10_json(acc['puuid'], match)
+    #     elif action == "NEXT_20_MATCHES":
+    #         params = [msg_json['gameName'], msg_json['tagLine']]
+    #         acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
+    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid'], msg_json['matchStartIndex']])
+    #     elif action == "CHALL_ACCS":
+    #         data = await self.fetch_data_from_api("CHALL_ACCS")
+    #     elif action == "ACC_BY_SUMM_ID":
+    #         params = [msg_json['summId']]
+    #         data = await self.fetch_data_from_api("ACC_BY_SUMM_ID", params)
+    #     elif action == "MATCHES_BY_PUUID":
+    #         params = [msg_json['puuid']]
+    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
+    #     elif action == "MATCHES_BY_PUUID_24HRS":
+    #         params = [msg_json['puuid'], msg_json['snapshotTimeThreshold']]
+    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
+    #     elif action == "MATCH_DATA_BY_MATCH_ID":
+    #         params = [msg_json['matchId']]
+    #         data = await self.fetch_data_from_api("MATCH_BY_ID", params)
+
+    #     if not await self.validate_message(data, schemas.reply_schema):
+    #         return
+
+    #     await self.send_data_to_queue(data, message.reply_to)
+
+    #     await message.ack()
 
     async def consume(self):
         await self.connect_and_consume()
