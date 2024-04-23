@@ -9,9 +9,10 @@ import request_actions as RA
 from request_actions import ActionType
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename="riot-service.log", level=logging.INFO)
+logging.basicConfig(filename="riot-service.log",
+                    level=logging.INFO, filemode='w')
 
-API_KEY = "RGAPI-30e77236-4c19-423b-ad3f-9c0253d3c2c4"
+API_KEY = "RGAPI-54fe163f-f193-4515-96ba-9575e9139eb9"
 
 ENDPOINTS = {
     ActionType.ACC_BY_RIOT_ID: "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",

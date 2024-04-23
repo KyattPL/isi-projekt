@@ -1,22 +1,24 @@
 import React from 'react';
-import { Container, Typography, TextField, Button } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Container } from '@mui/material';
+
+import Header from './Header';
+import Home from './Home';
+import Login from './Login';
+import SearchResults from './SearchResults';
 
 function App() {
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" component="h1" gutterBottom>
-        Clone.gg
-      </Typography>
-      <TextField
-        fullWidth
-        variant="outlined"
-        label="Search"
-        placeholder="Provide your Riot ID"
-      />
-      <Button variant="contained" color="primary" style={{ marginTop: '16px' }}>
-        Search
-      </Button>
-    </Container>
+    <BrowserRouter>
+      <Header />
+      <Container maxWidth="sm">
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/search-results" element={<SearchResults />} />
+        </Routes>
+      </Container>
+    </BrowserRouter>
   );
 }
 

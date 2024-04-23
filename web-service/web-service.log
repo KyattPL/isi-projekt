@@ -124,3 +124,112 @@ Traceback (most recent call last):
   File "F:\uczelnia\magister\ISI\projekt\riot-service\lib\site-packages\aiormq\connection.py", line 462, in connect
     raise AMQPConnectionError(*e.args) from e
 aiormq.exceptions.AMQPConnectionError: Multiple exceptions: [Errno 10061] Connect call failed ('::1', 5672, 0, 0), [Errno 10061] Connect call failed ('127.0.0.1', 5672)
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection error: ConnectionAbortedError(10053, 'Nawi¹zane po³¹czenie zosta³o przerwane przez oprogramowanie zainstalowane w komputerze-hoœcie', None, 10053, None). Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection error: ConnectionAbortedError(10053, 'Nawi¹zane po³¹czenie zosta³o przerwane przez oprogramowanie zainstalowane w komputerze-hoœcie', None, 10053, None). Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection error: ConnectionAbortedError(10053, 'Nawi¹zane po³¹czenie zosta³o przerwane przez oprogramowanie zainstalowane w komputerze-hoœcie', None, 10053, None). Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: [WinError 1225] Komputer zdalny odrzuci³ po³¹czenie sieciowe. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: [WinError 1225] Komputer zdalny odrzuci³ po³¹czenie sieciowe. Reconnecting after 5 seconds.
