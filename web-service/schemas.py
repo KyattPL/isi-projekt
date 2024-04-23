@@ -20,7 +20,7 @@ riot_service_request_schema = {
             },
             "then": {
                 "required": ["gameName", "tagLine"]
-            }   
+            }
         },
         {
             "if": {
@@ -77,6 +77,10 @@ riot_service_request_schema = {
 
 riot_service_reply_schema = {}
 
-web_service_request_schema = {}
+analysis_service_request_schema = {}
 
-web_service_reply_schema = {}
+analysis_service_reply_schema = {}
+
+payment_service_request_schema = {}
+
+payment_service_reply_schema = {}

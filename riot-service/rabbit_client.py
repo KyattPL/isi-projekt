@@ -127,62 +127,6 @@ class RabbitMQClient:
         await self.send_data_to_queue(data, message.reply_to)
         await message.ack()
 
-    # async def process_incoming_message(self, message):
-    #     msg = message.body.decode()
-    #     msg_json = json.loads(msg)
-
-    #     if not await self.validate_message(msg_json, schemas.action_schema):
-    #         return
-
-    #     action = msg_json['action']
-
-    #     if action == "ACC_BY_RIOT_ID":
-    #         params = [msg_json['gameName'], msg_json['tagLine']]
-    #         data = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
-    #     elif action == "MATCHES_BY_RIOT_ID":
-    #         params = [msg_json['gameName'], msg_json['tagLine']]
-    #         acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
-
-    #         if self.redisObj.exists(acc['puuid']):
-    #             data = self.get_last_10_json(acc['puuid'])
-    #         else:
-    #             data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
-
-    #         for match in data:
-    #             self.store_last_10_json(acc['puuid'], match)
-    #     elif action == "REFRESH_MATCHES_BY_RIOT_ID":
-    #         params = [msg_json['gameName'], msg_json['tagLine']]
-    #         acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
-    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid']])
-
-    #         for match in data:
-    #             self.store_last_10_json(acc['puuid'], match)
-    #     elif action == "NEXT_20_MATCHES":
-    #         params = [msg_json['gameName'], msg_json['tagLine']]
-    #         acc = await self.fetch_data_from_api("ACC_BY_RIOT_ID", params)
-    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", [acc['puuid'], msg_json['matchStartIndex']])
-    #     elif action == "CHALL_ACCS":
-    #         data = await self.fetch_data_from_api("CHALL_ACCS")
-    #     elif action == "ACC_BY_SUMM_ID":
-    #         params = [msg_json['summId']]
-    #         data = await self.fetch_data_from_api("ACC_BY_SUMM_ID", params)
-    #     elif action == "MATCHES_BY_PUUID":
-    #         params = [msg_json['puuid']]
-    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
-    #     elif action == "MATCHES_BY_PUUID_24HRS":
-    #         params = [msg_json['puuid'], msg_json['snapshotTimeThreshold']]
-    #         data = await self.fetch_data_from_api("MATCHES_BY_PUUID", params)
-    #     elif action == "MATCH_DATA_BY_MATCH_ID":
-    #         params = [msg_json['matchId']]
-    #         data = await self.fetch_data_from_api("MATCH_BY_ID", params)
-
-    #     if not await self.validate_message(data, schemas.reply_schema):
-    #         return
-
-    #     await self.send_data_to_queue(data, message.reply_to)
-
-    #     await message.ack()
-
     async def consume(self):
         await self.connect_and_consume()
         await self.queue.consume(self.process_incoming_message, no_ack=False)
