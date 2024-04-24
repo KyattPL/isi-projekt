@@ -5,7 +5,7 @@ class ActionType(Enum):
     ACC_BY_RIOT_ID = "ACC_BY_RIOT_ID"
     MATCHES_BY_RIOT_ID = "MATCHES_BY_RIOT_ID"
     REFRESH_MATCHES_BY_RIOT_ID = "REFRESH_MATCHES_BY_RIOT_ID"
-    NEXT_20_MATCHES = "NEXT_20_MATCHES"
+    NEXT_10_MATCHES = "NEXT_10_MATCHES"
     CHALL_ACCS = "CHALL_ACCS"
     ACC_BY_SUMM_ID = "ACC_BY_SUMM_ID"
     MATCHES_BY_PUUID = "MATCHES_BY_PUUID"
@@ -32,7 +32,7 @@ class MatchesByRiotIdStrategy(ActionStrategy):
         if client.redisObj.exists(acc['puuid']):
             data = client.get_last_10_json(acc['puuid'])
         else:
-            data = await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, [acc['puuid']], "type=ranked")
+            data = await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, [acc['puuid']], "type=ranked&count=10")
 
         for match in data:
             client.store_last_10_json(acc['puuid'], match)
@@ -44,7 +44,7 @@ class RefreshMatchesByRiotIdStrategy(ActionStrategy):
     async def execute(self, client, msg_json):
         params = [msg_json['gameName'], msg_json['tagLine']]
         acc = await client.fetch_data_from_api(ActionType.ACC_BY_RIOT_ID, params)
-        data = await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, [acc['puuid']], "type=ranked")
+        data = await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, [acc['puuid']], "type=ranked&count=10")
 
         for match in data:
             client.store_last_10_json(acc['puuid'], match)
@@ -52,11 +52,11 @@ class RefreshMatchesByRiotIdStrategy(ActionStrategy):
         return data
 
 
-class Next20MatchesStrategy(ActionStrategy):
+class Next10MatchesStrategy(ActionStrategy):
     async def execute(self, client, msg_json):
         params = [msg_json['gameName'], msg_json['tagLine']]
         acc = await client.fetch_data_from_api(ActionType.ACC_BY_RIOT_ID, params)
-        return await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, [acc['puuid']], f"type=ranked&start={msg_json['matchStartIndex']}")
+        return await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, [acc['puuid']], f"type=ranked&start={msg_json['matchStartIndex']}&count=10")
 
 
 class ChallAccsStrategy(ActionStrategy):
@@ -73,13 +73,13 @@ class AccBySummIdStrategy(ActionStrategy):
 class MatchesByPuuidStrategy(ActionStrategy):
     async def execute(self, client, msg_json):
         params = [msg_json['puuid']]
-        return await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, params, "type=ranked")
+        return await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, params, "type=ranked&count=10")
 
 
 class MatchesByPuuid24HStrategy(ActionStrategy):
     async def execute(self, client, msg_json):
         params = [msg_json['puuid']]
-        return await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, params, f"type=ranked&startTime={msg_json['snapshotTimeThreshold']}")
+        return await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, params, f"type=ranked&startTime={msg_json['snapshotTimeThreshold']}&count=10")
 
 
 class MatchDataByMatchIdStrategy(ActionStrategy):

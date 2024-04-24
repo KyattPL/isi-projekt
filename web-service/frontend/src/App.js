@@ -11,11 +11,11 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Container maxWidth="sm">
+      <Container>
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/search-results" element={<SearchResults />} />
+          <Route path="/search-results/:gameName/:tagLine" element={<SearchResults />} />
         </Routes>
       </Container>
     </BrowserRouter>

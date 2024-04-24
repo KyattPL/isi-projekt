@@ -7,7 +7,8 @@ from aio_pika import connect_robust, Message
 import logging
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='web-service.log', level=logging.INFO)
+logging.basicConfig(filename='web-service.log',
+                    level=logging.INFO, filemode='w')
 
 
 class RabbitMQClient:

@@ -11,14 +11,15 @@ function Home() {
     };
 
     const handleSearch = async () => {
-        console.log("here");
-        let [gameName, tagLine] = inputValue.split("#");
-        const response = await fetch(`http://localhost:8000/matches_by_riot_id/${gameName}/${tagLine}`);
-        console.log("here 2");
-        const data = await response.json();
-        console.log(data);
+        // console.log("here");
+        // let [gameName, tagLine] = inputValue.split("#");
+        // const response = await fetch(`http://localhost:8000/matches_data_by_riot_id/${gameName}/${tagLine}`);
+        // console.log("here 2");
+        // const data = await response.json();
+        // console.log(data);
 
-        navigate('/search-results', { state: { data } });
+        let [gameName, tagLine] = inputValue.split("#");
+        navigate(`/search-results/${gameName}/${tagLine}`);
     };
 
     return (

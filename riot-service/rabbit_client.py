@@ -92,7 +92,7 @@ class RabbitMQClient:
             ActionType.ACC_BY_RIOT_ID: RA.AccByRiotIdStrategy(),
             ActionType.MATCHES_BY_RIOT_ID: RA.MatchesByRiotIdStrategy(),
             ActionType.REFRESH_MATCHES_BY_RIOT_ID: RA.RefreshMatchesByRiotIdStrategy(),
-            ActionType.NEXT_20_MATCHES: RA.Next20MatchesStrategy(),
+            ActionType.NEXT_10_MATCHES: RA.Next10MatchesStrategy(),
             ActionType.CHALL_ACCS: RA.ChallAccsStrategy(),
             ActionType.ACC_BY_SUMM_ID: RA.AccBySummIdStrategy(),
             ActionType.MATCHES_BY_PUUID: RA.MatchesByPuuidStrategy(),
