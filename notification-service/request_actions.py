@@ -12,6 +12,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+import database as db
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 
@@ -31,7 +33,7 @@ class SendPaymentStatus(ActionStrategy):
         receiverMail = params[0]
         mailBody = F"Hello {params[1]}, the status of your payment is as follows: {params[2]}."
         mailSubject = "Payment status"
-        sendMail(receiverMail, mailBody, mailSubject)
+        await sendMail(receiverMail, mailBody, mailSubject, userCredentials=params[1])
 
 
 class SendPremiumConfirmation(ActionStrategy):
@@ -40,10 +42,18 @@ class SendPremiumConfirmation(ActionStrategy):
         receiverMail = params[0]
         mailBody = F"Hello {params[1]}, the payment process has been completed and you have received the premium membership."
         mailSubject = "Premium membership confirmation"
-        sendMail(receiverMail, mailBody, mailSubject)
+        await sendMail(receiverMail, mailBody, mailSubject, userCredentials=params[1])
+
+async def insert_notification_into_db(userEmail, userCredentials, messageSubject, messageBody):
+
+        db.create_notifications_table()
+
+        print(userEmail, userCredentials, messageSubject, messageBody)
+
+        db.insert_notification(userEmail, userCredentials, messageSubject, messageBody)
 
 
-def sendMail(receiverMail, mailBody, mailSubject):
+async def sendMail(receiverMail, mailBody, mailSubject, userCredentials):
     creds = None
     # Construct the path to the credentials.json file
     credentials_path = os.path.join(os.path.dirname(__file__), "credentials.json")
@@ -84,5 +94,6 @@ def sendMail(receiverMail, mailBody, mailSubject):
         # Send the message
         send_message = service.users().messages().send(userId="me", body={"raw": raw_message}).execute()
         print(F"Message Id: {send_message['id']}")
+        await insert_notification_into_db(receiverMail, userCredentials, mailSubject, mailBody)
     except HttpError as error:
         print(f"An error occurred: {error}")
