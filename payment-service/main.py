@@ -23,32 +23,32 @@ order_url = 'https://secure.snd.payu.com/api/v2_1/orders'
 order_data = {
     "customerIp": "127.0.0.1",
     "merchantPosId": "478129",
-    "description": "RTV market",
+    "description": "CloneGG",
     "currencyCode": "PLN",
-    "totalAmount": "21000",
+    "totalAmount": "1",
     "products": [
        {
-          "name": "Wireless Mouse for Laptop",
-          "unitPrice": "21000",
+          "name": "Konto premium",
+          "unitPrice": "1",
           "quantity": "1"
         }
     ]
 }
+
+authorization = 'Bearer ' + oauth_token
 order_headers = {
     'Content-Type': 'application/json',
-    'Authorization': f'Bearer {oauth_token}'
+    'Authorization': f'{authorization}'
 }
 order_response = requests.post(order_url, json=order_data, headers=order_headers)
 
 if order_response.status_code == 200:
     print("Order created successfully")
-    order_response_data = order_response.json()
-    #redirect_uri = order_response_data.get('redirectUri')
-    #if redirect_uri:
-     #   print("Redirecting user to PayU payment page...")
-      #  webbrowser.open(redirect_uri)
-    #else:
-    #    print("No redirect URI found in the response.")
+    if order_response.url:
+        print("Redirecting user to PayU payment page...")
+        webbrowser.open(order_response.url)
+    else:
+        print("No redirect URI found in the response.")
 else:
     print(f"Error creating order: {order_response.status_code}")
     print(order_response.text)
