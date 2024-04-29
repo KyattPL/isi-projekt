@@ -11,7 +11,7 @@ const { google } = require('googleapis');
 const oauth2Client = new google.auth.OAuth2(
     '1004980276527-a99su492ckbo05dfji1i555dvt3v6jkc.apps.googleusercontent.com',
     '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',
-    '<http://localhost:3000/auth/google/callback>'
+    'http://localhost:3000/auth/google/callback'
 );
 
 // Access scopes for read-only Drive activity.
