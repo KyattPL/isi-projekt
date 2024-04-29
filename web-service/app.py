@@ -52,15 +52,34 @@ async def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/some_endpoint")
-async def some_endpoint(rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
-    # Use rabbit_client here
-    return {"message": "This is an example endpoint"}
-
-
 @app.get("/matches_data_by_riot_id/{gameName}/{tagLine}")
-async def some_endpoint(gameName, tagLine, rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
+async def matches_data_by_riot_id(gameName, tagLine, rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
     matches = await rabbit_client_instance.send_data_to_riot_service({"action": "MATCHES_BY_RIOT_ID", "gameName": gameName, "tagLine": tagLine})
+
+    matches_data = []
+    for match in matches:
+        resp = await rabbit_client_instance.send_data_to_riot_service({"action": "MATCH_DATA_BY_MATCH_ID", "matchId": match})
+        matches_data.append(resp)
+
+    return matches_data
+
+
+@app.get("/refresh_matches_data_by_riot_id/{gameName}/{tagLine}")
+async def refresh_matches_data_by_riot_id(gameName, tagLine, rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
+    matches = await rabbit_client_instance.send_data_to_riot_service({"action": "REFRESH_MATCHES_BY_RIOT_ID", "gameName": gameName, "tagLine": tagLine})
+
+    matches_data = []
+    for match in matches:
+        resp = await rabbit_client_instance.send_data_to_riot_service({"action": "MATCH_DATA_BY_MATCH_ID", "matchId": match})
+        matches_data.append(resp)
+
+    return matches_data
+
+
+@app.get("/next10_matches_data_by_riot_id/{gameName}/{tagLine}/{startIndex}")
+async def next10_matches_data_by_riot_id(gameName, tagLine, startIndex, rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
+    matches = await rabbit_client_instance.send_data_to_riot_service({"action": "NEXT_10_MATCHES", "gameName": gameName, "tagLine": tagLine, "matchStartIndex": int(startIndex)})
+    print(matches)
 
     matches_data = []
     for match in matches:
