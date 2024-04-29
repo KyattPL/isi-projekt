@@ -9,9 +9,9 @@ const { google } = require('googleapis');
  * https://console.cloud.google.com/apis/credentials.
  */
 const oauth2Client = new google.auth.OAuth2(
-    '1004980276527-a99su492ckbo05dfji1i555dvt3v6jkc.apps.googleusercontent.com',
-    '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',
-    'http://localhost:3000/auth/google/callback'
+  "1004980276527-a99su492ckbo05dfji1i555dvt3v6jkc.apps.googleusercontent.com",
+  "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",
+  "http://localhost:3000/auth/google/callback"
 );
 
 // Access scopes for read-only Drive activity.
@@ -22,7 +22,7 @@ const scopes = [
 // Generate a url that asks permissions for the Drive activity scope
 const authorizationUrl = oauth2Client.generateAuthUrl({
   // 'online' (default) or 'offline' (gets refresh_token)
-  access_type: 'offline',
+  access_type: 'online',
   /** Pass in the scopes array defined above.
     * Alternatively, if only one scope is needed, you can pass a scope URL as a string */
   scope: scopes,
@@ -40,6 +40,11 @@ const authorizationUrl = oauth2Client.generateAuthUrl({
  */
 let userCredential = null;
 
+// const requestListener = function (req, res) {
+//   res.writeHead(200);
+//   res.end("My first server!");
+// };
+
 async function main() {
   const server = http.createServer(async function (req, res) {
     // Example on redirecting user to Google's OAuth 2.0 server.
@@ -48,12 +53,13 @@ async function main() {
     }
 
     // Receive the callback from Google's OAuth 2.0 server.
-    if (req.url.startsWith('/oauth2callback')) {
+    if (req.url.startsWith('/auth/google/callback')) {
       // Handle the OAuth 2.0 server response
       let q = url.parse(req.url, true).query;
 
       if (q.error) { // An error response e.g. error=access_denied
         console.log('Error:' + q.error);
+        // Wywołanie endpointu na Froncie w stylu .../auth/google/failure
       } else { // Get access and refresh tokens (if access_type is offline)
         let { tokens } = await oauth2Client.getToken(q.code);
         oauth2Client.setCredentials(tokens);
@@ -62,6 +68,8 @@ async function main() {
           * ACTION ITEM: In a production app, you likely want to save the refresh token
           *              in a secure persistent database instead. */
         userCredential = tokens;
+
+        // Wywołanie endpointu na Froncie w stylu .../auth/google/success
 
         // Example of using Google Drive API to list filenames in user's Drive.
         const drive = google.drive('v3');
@@ -118,6 +126,6 @@ async function main() {
       postReq.end();
     }
     res.end();
-  }).listen(80);
+  }).listen(3000);
 }
 main().catch(console.error);
