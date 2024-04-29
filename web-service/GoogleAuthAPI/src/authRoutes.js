@@ -32,9 +32,9 @@ const authorizationUrl = oauth2Client.generateAuthUrl({
 // Initiates the Google Login flow
 router.get('/auth/google', (req, res) => {
   // const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=profile email`;
-  const url = authorizationUrl;
-  // res.writeHead(301, { "Location": authorizationUrl });
-  res.redirect(url);
+  // const url = authorizationUrl;
+  res.writeHead(301, { "Location": authorizationUrl });
+  // res.redirect(url);
 });
 
 // Callback URL for handling the Google Login response
