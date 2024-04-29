@@ -11,3 +11,4 @@
 **/pyvenv.cfg
 
 web-service/frontend/node_modules/**
+web-service/GoogleAuthAPI/node_modules/**
