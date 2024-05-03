@@ -79,7 +79,7 @@ async def shutdown_event():
 @app.get("/auth/google/login")
 async def google_auth_redirect():
     print(authentication_url, flush=True)
-    return {"url": authentication_url}
+    return {"message": authentication_url}
 
 
 @app.get("/auth/google/callback")
