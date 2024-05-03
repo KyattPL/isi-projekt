@@ -11,6 +11,8 @@ from rabbit_client import RabbitMQClient
 from oauthlib.oauth2 import WebApplicationClient
 from requests_oauthlib import OAuth2Session
 
+import database as db
+
 app = FastAPI()
 
 # Google OAuth2 configuration
@@ -74,7 +76,6 @@ async def shutdown_event():
         await rabbit_client_instance.connection.close()
 
 
-# FastAPI endpoints
 @app.get("/auth/google/login")
 async def google_auth_redirect():
     print(authentication_url, flush=True)
@@ -104,8 +105,16 @@ async def google_auth_callback(request: Request):
 
     service = build('people', 'v1', credentials=credentials)
     results = service.people().get(resourceName='people/me', personFields='names,emailAddresses').execute()
-    print(f"Name: {results['names'][0]['displayName']}")
-    print(f"Email: {results['emailAddresses'][0]['value']}")
+
+    if not results:
+        print("No name nor mail found.")
+    else:
+        name = results['names'][0]['displayName']
+        email = results['emailAddresses'][0]['value']
+        print(f"Name: {name}")
+        print(f"Email: {email}")
+        db.insert_user_into_db(email, name)
+
 
     # google drive files request:
     # drive = build('drive', 'v2', credentials=credentials)
