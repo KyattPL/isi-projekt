@@ -12,18 +12,20 @@ def create_snapshot_table():
     conn.commit()
     conn.close()
 
-def insert_snapshot(champion, killsAvg, deathsAvg, assistsAvg, expAvg, goldAvg, damageDealtAvg, 
-               damageTakenAvg, healAvg, csAvg, visionScoreAvg):
+
+def insert_snapshot(champion, killsAvg, deathsAvg, assistsAvg, expAvg, goldAvg, damageDealtAvg,
+                    damageTakenAvg, healAvg, csAvg, visionScoreAvg):
     conn = sqlite3.connect('matches.db')
-    c = conn.cursor()    
+    c = conn.cursor()
 
     c.execute('''INSERT INTO SNAPSHOT (champion, killsAvg, deathsAvg, assistsAvg, expAvg,
               goldAvg, damageDealtAvg, damageTakenAvg, healAvg, csAvg, visionScoreAvg) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-              (champion, killsAvg, deathsAvg, assistsAvg, expAvg, goldAvg, damageDealtAvg, 
+              (champion, killsAvg, deathsAvg, assistsAvg, expAvg, goldAvg, damageDealtAvg,
                damageTakenAvg, healAvg, csAvg, visionScoreAvg))
 
     conn.commit()
     conn.close()
+
 
 def create_matches_table():
     # Creates a new database file if it doesn't exist
@@ -67,6 +69,19 @@ def get_matches():
     conn.close()
 
     return matches
+
+
+def get_snapshot(snapshotId):
+    conn = sqlite3.connect('matches.db')
+    c = conn.cursor()
+
+    c.execute('''SELECT * FROM SNAPSHOT WHERE snapshotId = ?''', (snapshotId,))
+
+    champAvgs = c.fetchall()
+    conn.close()
+
+    return champAvgs
+
 
 def calculate_avg_per_champion(snapshotId):
     conn = sqlite3.connect('matches.db')

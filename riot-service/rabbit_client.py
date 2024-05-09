@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(filename="riot-service.log",
                     level=logging.INFO, filemode='w')
 
-API_KEY = "RGAPI-2274d77e-90d5-4ab2-96d4-0542e8ce64fc"
+API_KEY = "RGAPI-4eeb1332-8bfe-4b0f-bd72-9a1e232b41b3"
 
 ENDPOINTS = {
     ActionType.ACC_BY_RIOT_ID: "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",
@@ -97,7 +97,8 @@ class RabbitMQClient:
             ActionType.ACC_BY_SUMM_ID: RA.AccBySummIdStrategy(),
             ActionType.MATCHES_BY_PUUID: RA.MatchesByPuuidStrategy(),
             ActionType.MATCHES_BY_PUUID_24HRS: RA.MatchesByPuuid24HStrategy(),
-            ActionType.MATCH_DATA_BY_MATCH_ID: RA.MatchDataByMatchIdStrategy()
+            ActionType.MATCH_DATA_BY_MATCH_ID: RA.MatchDataByMatchIdStrategy(),
+            ActionType.NEW_SNAPSHOT_REQUEST: RA.NewSnapshotRequestStrategy()
         }
         return strategies.get(action, None)
 

@@ -98,6 +98,7 @@ function SearchResults() {
               match={match}
               gameName={gameName}
               tagLine={tagLine}
+              key={index}
             />
           ))}
           {loadingMore ? (
