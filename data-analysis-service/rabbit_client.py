@@ -130,9 +130,9 @@ class RabbitMQClient:
 
         db.create_matches_table()
 
-        for match in matches:
-            print(match)
+        # TODO: handle bad matches
 
+        for match in matches:
             patch = match['info']['gameVersion'].split('.')
             patch = patch[0] + '.' + patch[1]
             gameDuration = match['info']['gameDuration']

@@ -1,2 +1,25 @@
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+ERROR:asyncio:Exception in callback _task_done(<Task finishe...ut of range')>) at /home/kyatt/.local/lib/python3.10/site-packages/aio_pika/tools.py:43
+handle: <Handle _task_done(<Task finishe...ut of range')>) at /home/kyatt/.local/lib/python3.10/site-packages/aio_pika/tools.py:43>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "/home/kyatt/.local/lib/python3.10/site-packages/aio_pika/tools.py", line 47, in _task_done
+    raise exc
+  File "/home/kyatt/Desktop/uczelnia/magisterskie/ISI/isi-projekt/data-analysis-service/rabbit_client.py", line 58, in process_riot_service_message
+    await self.insert_matches_into_db(msg_json)
+  File "/home/kyatt/Desktop/uczelnia/magisterskie/ISI/isi-projekt/data-analysis-service/rabbit_client.py", line 137, in insert_matches_into_db
+    patch = patch[0] + '.' + patch[1]
+IndexError: list index out of range
+ERROR:asyncio:Task exception was never retrieved
+future: <Task finished name='Task-64' coro=<consumer() done, defined at /home/kyatt/.local/lib/python3.10/site-packages/aio_pika/queue.py:31> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/kyatt/.local/lib/python3.10/site-packages/aio_pika/queue.py", line 37, in consumer
+    return await create_task(callback, message)
+  File "/home/kyatt/Desktop/uczelnia/magisterskie/ISI/isi-projekt/data-analysis-service/rabbit_client.py", line 58, in process_riot_service_message
+    await self.insert_matches_into_db(msg_json)
+  File "/home/kyatt/Desktop/uczelnia/magisterskie/ISI/isi-projekt/data-analysis-service/rabbit_client.py", line 137, in insert_matches_into_db
+    patch = patch[0] + '.' + patch[1]
+IndexError: list index out of range
 INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
