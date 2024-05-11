@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(filename="riot-service.log",
                     level=logging.INFO, filemode='w')
 
-API_KEY = "RGAPI-4eeb1332-8bfe-4b0f-bd72-9a1e232b41b3"
+API_KEY = "RGAPI-100c6da3-55fe-4eb6-8237-d5fbcf3557f6"
 
 ENDPOINTS = {
     ActionType.ACC_BY_RIOT_ID: "https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/",

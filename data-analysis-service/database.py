@@ -5,6 +5,8 @@ def create_snapshot_table():
     conn = sqlite3.connect('matches.db')
     c = conn.cursor()
 
+    c.execute('''DROP TABLE IF EXISTS SNAPSHOT''')
+
     c.execute('''CREATE TABLE IF NOT EXISTS SNAPSHOT
               (champion TEXT PRIMARY KEY, killsAvg REAL, deathsAvg REAL, assistsAvg REAL, expAvg REAL,
               goldAvg REAL, damageDealtAvg REAL, damageTakenAvg REAL, healAvg REAL, csAvg REAL, visionScoreAvg REAL)''')
@@ -71,11 +73,11 @@ def get_matches():
     return matches
 
 
-def get_snapshot(snapshotId):
+def get_snapshot():
     conn = sqlite3.connect('matches.db')
     c = conn.cursor()
 
-    c.execute('''SELECT * FROM SNAPSHOT WHERE snapshotId = ?''', (snapshotId,))
+    c.execute('''SELECT * FROM SNAPSHOT''')
 
     champAvgs = c.fetchall()
     conn.close()

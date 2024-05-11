@@ -53,16 +53,10 @@ class RabbitMQClient:
             await message.reject(requeue=False)
             return
 
-        await message.ack()
-
         await self.insert_matches_into_db(msg_json)
+        await self.send_data_to_web_service(db.get_snapshot())
 
-        with open("last_snapshot_info.json", 'r') as file:
-            data = json.load(file)
-
-        snapshotId = data['snapshotId']
-
-        await self.send_data_to_web_service(db.get_snapshot(snapshotId))
+        await message.ack()
 
     async def consume(self):
         await self.connect_and_consume()
@@ -78,17 +72,6 @@ class RabbitMQClient:
 
         await self.channel.default_exchange.publish(message, routing_key="lol.data.request")
 
-        # while self.response is None:
-        #   await asyncio.sleep(0.1)
-
-        # if not await self.validate_message(self.response, schemas.riot_service_reply_schema):
-        #     logging.error("Response from Riot service is invalid.")
-        #     return
-
-        # resp = self.response
-        # self.response = None
-        # return resp
-
     async def process_web_service_message(self, message):
         msg = message.body.decode()
         msg_json = json.loads(msg)
@@ -98,7 +81,6 @@ class RabbitMQClient:
             await message.reject(requeue=False)
             return
 
-        # self.response = msg_json
         await message.ack()
 
     async def send_data_to_web_service(self, data):
@@ -111,17 +93,6 @@ class RabbitMQClient:
 
         await self.channel.default_exchange.publish(message, routing_key="analysis.reply")
 
-        # while self.response is None:
-        #   await asyncio.sleep(0.1)
-
-        # if not await self.validate_message(self.response, schemas.riot_service_reply_schema):
-        #     logging.error("Response from Web service is invalid.")
-        #     return
-
-        # resp = self.response
-        # self.response = None
-        # return resp
-
     async def insert_matches_into_db(self, matches):
         with open("last_snapshot_info.json", 'r') as file:
             data = json.load(file)
@@ -130,9 +101,10 @@ class RabbitMQClient:
 
         db.create_matches_table()
 
-        # TODO: handle bad matches
-
         for match in matches:
+            if match['info']['endOfGameResult'] == "Abort_Unexpected":
+                continue
+
             patch = match['info']['gameVersion'].split('.')
             patch = patch[0] + '.' + patch[1]
             gameDuration = match['info']['gameDuration']

@@ -95,7 +95,7 @@ class RabbitMQClient:
 
         db.create_snapshot_table()
         for champ in msg_json:
-            db.insert_champ_to_snapshot({**champ})
+            db.insert_champ_to_snapshot(*champ)
         await message.ack()
 
     async def send_data_to_analysis_service(self, data):
