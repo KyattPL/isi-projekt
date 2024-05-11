@@ -6,6 +6,8 @@ import schemas
 from aio_pika import connect_robust, Message
 import logging
 
+import database as db
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='web-service.log',
                     level=logging.INFO, filemode='w')
@@ -91,7 +93,9 @@ class RabbitMQClient:
             await message.reject(requeue=False)
             return
 
-        self.response = msg_json
+        db.create_snapshot_table()
+        for champ in msg_json:
+            db.insert_champ_to_snapshot(*champ)
         await message.ack()
 
     async def send_data_to_analysis_service(self, data):

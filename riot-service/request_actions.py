@@ -1,4 +1,7 @@
+import asyncio
+import datetime
 from enum import Enum
+from datetime import datetime as dt
 
 
 class ActionType(Enum):
@@ -11,6 +14,7 @@ class ActionType(Enum):
     MATCHES_BY_PUUID = "MATCHES_BY_PUUID"
     MATCHES_BY_PUUID_24HRS = "MATCHES_BY_PUUID_24HRS"
     MATCH_DATA_BY_MATCH_ID = "MATCH_DATA_BY_MATCH_ID"
+    NEW_SNAPSHOT_REQUEST = "NEW_SNAPSHOT_REQUEST"
 
 
 class ActionStrategy:
@@ -86,3 +90,39 @@ class MatchDataByMatchIdStrategy(ActionStrategy):
     async def execute(self, client, msg_json):
         params = [msg_json['matchId']]
         return await client.fetch_data_from_api(ActionType.MATCH_DATA_BY_MATCH_ID, params)
+
+
+class NewSnapshotRequestStrategy(ActionStrategy):
+    async def execute(self, client, msg_json):
+        challs = await client.fetch_data_from_api(ActionType.CHALL_ACCS)
+        challs = challs[:90]
+
+        accs_puuids = []
+        for acc in challs:
+            resp = await client.fetch_data_from_api(ActionType.ACC_BY_SUMM_ID, [acc['summonerId']])
+            accs_puuids.append(resp['puuid'])
+
+        await asyncio.sleep(120)
+
+        print("here")
+
+        start_date = dt.strptime('16/06/2021', '%d/%m/%Y')
+        yesterday = dt.now() - datetime.timedelta(days=1)
+        seconds_passed = int((yesterday - start_date).total_seconds())
+
+        match_ids = set()
+        for puuid in accs_puuids:
+            resp = await client.fetch_data_from_api(ActionType.MATCHES_BY_PUUID, [puuid], f"type=ranked&startTiime={seconds_passed}&count=10")
+            for match in resp:
+                match_ids.add(match)
+
+        matches_data = []
+        index = 0
+        for match_id in match_ids:
+            if index % 95 == 0:
+                await asyncio.sleep(120)
+            resp = await client.fetch_data_from_api(ActionType.MATCH_DATA_BY_MATCH_ID, [match_id])
+            matches_data.append(resp)
+            index += 1
+
+        return matches_data
