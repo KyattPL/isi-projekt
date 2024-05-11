@@ -1,8 +1,12 @@
 import asyncio
+from datetime import timedelta, datetime
 import json
 import os
-from fastapi import Depends, FastAPI, Request, HTTPException
+import time
+from fastapi import Depends, FastAPI, Request, HTTPException, BackgroundTasks
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from pydantic import BaseModel
@@ -29,9 +33,9 @@ SCOPE = [
 
 client = WebApplicationClient(CLIENT_ID)
 authentication_url = client.prepare_request_uri(
-  'https://accounts.google.com/o/oauth2/auth',
-  redirect_uri = REDIRECT_URI,
-  scope = SCOPE,
+    'https://accounts.google.com/o/oauth2/auth',
+    redirect_uri=REDIRECT_URI,
+    scope=SCOPE,
 )
 
 
@@ -49,8 +53,20 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 rabbit_client_instance = None
+sessions = {}
+SESSION_EXPIRATION_TIME = timedelta(minutes=30)
+
+
+def cleanup_expired_sessions():
+    while True:
+        current_time = datetime.now()
+        for email, session_data in list(sessions.items()):
+            if current_time - session_data['last_activity'] > SESSION_EXPIRATION_TIME:
+                del sessions[email]
+        time.sleep(60)  # Check every 60 seconds
 
 
 async def get_rabbit_client():
@@ -65,6 +81,10 @@ async def get_rabbit_client():
 @app.on_event("startup")
 async def startup_event():
     global rabbit_client_instance
+
+    cleanup_expired_sessions_task = BackgroundTasks()
+    cleanup_expired_sessions_task.add_task(cleanup_expired_sessions)
+
     if rabbit_client_instance is None:
         rabbit_client_instance = await get_rabbit_client()
 
@@ -89,10 +109,10 @@ async def google_auth_callback(request: Request):
         raise HTTPException(status_code=400, detail="Code not found")
 
     data = client.prepare_request_body(
-        code = extracted_code,
-        redirect_uri = REDIRECT_URI,
-        client_id = CLIENT_ID,
-        client_secret = CLIENT_SECRET,
+        code=extracted_code,
+        redirect_uri=REDIRECT_URI,
+        client_id=CLIENT_ID,
+        client_secret=CLIENT_SECRET,
         include_client_id=True
     )
 
@@ -104,7 +124,8 @@ async def google_auth_callback(request: Request):
     credentials = Credentials(client.token['access_token'])
 
     service = build('people', 'v1', credentials=credentials)
-    results = service.people().get(resourceName='people/me', personFields='names,emailAddresses').execute()
+    results = service.people().get(resourceName='people/me',
+                                   personFields='names,emailAddresses').execute()
 
     if not results:
         print("No name nor mail found.")
@@ -113,8 +134,13 @@ async def google_auth_callback(request: Request):
         email = results['emailAddresses'][0]['value']
         print(f"Name: {name}")
         print(f"Email: {email}")
+
+        sessions[email] = {"name": name, "email": email,
+                           "last_activity": datetime.now()}
+
         db.insert_user_into_db(email, name)
 
+        return JSONResponse({"email": email, "status": "OK"})
 
     # google drive files request:
     # drive = build('drive', 'v2', credentials=credentials)
@@ -125,7 +151,6 @@ async def google_auth_callback(request: Request):
     # else:
     #     for item in items:
     #         print(f"File Name: {item['name']}, File ID: {item['id']}")
-    
 
 
 @app.get("/")
@@ -168,3 +193,12 @@ async def next10_matches_data_by_riot_id(gameName, tagLine, startIndex, rabbit_c
         matches_data.append(resp)
 
     return matches_data
+
+
+@app.middleware("http")
+async def update_last_activity(request: Request, call_next):
+    response = await call_next(request)
+    email = request.headers.get("X-User-Email")
+    if email and email in sessions:
+        sessions[email]['last_activity'] = datetime.now()
+    return response
