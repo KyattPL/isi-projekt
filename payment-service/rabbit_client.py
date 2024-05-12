@@ -3,7 +3,11 @@ import jsonschema
 import json
 import webbrowser
 import schemas
+import time
+import asyncio
 from aio_pika import connect_robust, Message
+from bs4 import BeautifulSoup
+
 
 oauth_url = 'https://secure.snd.payu.com/pl/standard/user/oauth/authorize'
 order_url = 'https://secure.snd.payu.com/api/v2_1/orders'
@@ -62,7 +66,8 @@ class RabbitMQClient:
             
         await message.ack()
 
-    def create_oauth_token(self, msg_json):
+    # Tworzy oauth token potrzebny do stworzenia zamówienia
+    async def create_oauth_token(self, msg_json):
         try:
             oauth_response = requests.post(oauth_url, data=msg_json)
             print("Access token: " + oauth_response.json().get('access_token'))
@@ -70,18 +75,67 @@ class RabbitMQClient:
             return oauth_response
         
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred while creating oauth token: {e}")
+            return e
 
-    # Tworzy order -> Stronka ------> To po Id odpytuj co 2 s Retrieve an order 
-    # ------> Jeśli completed to wysyłam do notifications.request (michał) i payment.response.web (serwis web)
-    def create_order(self, msg_json, msg_headers):
+    # Tworzy zamówienie
+    async def create_order(self, msg_json, msg_headers):
         try:
             order_response = requests.post(order_url, json=msg_json, headers=msg_headers)
             print("Redirecting user to PayU payment page...")
             webbrowser.open(order_response.url)
 
+            order_id = order_response.url.split('?orderId=')[1].split('&')[0]
+
+            return order_id
+
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred while creating an order: {e}")
+            return e
+
+    # Sprawdza status zamówienia po Id
+    async def check_status_order(self, msg_headers, order_id):
+        try:
+            # Adding current orderId to url
+            status_url = f"{order_url}/{order_id}"
+        
+            # Making the GET request
+            status_response = requests.get(status_url, headers=msg_headers)
+
+            # Getting status of the order
+            status = status_response.json().get('orders', [{}])[0].get('status')
+
+            return status
+        except Exception as e:
+            print(f"An error occurred while checking status of an order: {e}")
+            return e  
+    
+    # Tworzy zamówienie, sprawdza jego status i wysyła powiadomienia
+    async def handle_order(self, msg_json, msg_headers):
+        order_status = 'NEW'
+        try:
+            # If Oauth token bad:
+                # Robienie tokena
+            
+            # Stórz order i przekieruj na stronę 
+            order_id = self.create_order(msg_json, msg_headers)
+
+            # Sprawdzaj order 
+            while (order_status != 'CANCELED' and order_status != 'COMPLETED'):
+                order_status = self.check_status_order(msg_headers, order_id)
+                await asyncio.sleep(1)
+            
+            if (order_status == 'CANCELED'):
+                # Wyślij wiadomość CANCELED
+                pass
+            elif (order_status == 'COMPLETED'):
+                # Wyświj wiadomość COMPLETED wysyłam do notifications.request (michał) i do payment.response.web (serwis web)
+                pass
+            return 0
+        
+        except Exception as e:
+            print(f"An error occurred while handling order: {e}")
+            return e  
 
     async def consume(self):
         await self.connect_and_consume()
