@@ -3,16 +3,11 @@ import jsonschema
 import json
 import webbrowser
 import schemas
-import time
 import asyncio
 from aio_pika import connect_robust, Message
-from bs4 import BeautifulSoup
-
 
 oauth_url = 'https://secure.snd.payu.com/pl/standard/user/oauth/authorize'
 order_url = 'https://secure.snd.payu.com/api/v2_1/orders'
-
-TOKEN = "XD"
 
 class RabbitMQClient:
     def __init__(self, loop):
@@ -20,6 +15,7 @@ class RabbitMQClient:
         self.connection = None
         self.channel = None
         self.queue = None
+        self.token = None
         self.loop.create_task(self.consume())
 
     async def connect_and_consume(self):
@@ -42,10 +38,11 @@ class RabbitMQClient:
             print("Message is not a valid JSON.")
             return False
         
-    async def send_data_to_queue(self, data):
+    async def send_data_to_queue(self, data, routing_key):
         data_bytes = json.dumps(data).encode()
         message = Message(body=data_bytes)
-        await self.channel.default_exchange.publish(message, routing_key="payments.reply")
+        await self.channel.default_exchange.publish(message, routing_key)
+        print ("Sent data to queue: " + routing_key)
 
     async def process_incoming_message(self, message):
         msg = message.body.decode()
@@ -58,35 +55,40 @@ class RabbitMQClient:
 
         # CO 12 H BEDZIE REFRESH
         if action == "CREATE_AUTH_TOKEN":
-            TOKEN = self.create_oauth_token(msg_json)
+            self.token = self.create_oauth_token(msg_json)
 
         elif action == "CREATE_ORDER":
-            msg_headers = message.headers
-            self.create_order(msg_json, msg_headers)
+            if (self.token):
+                authorization = 'Bearer ' + self.token
+                msg_headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': f'{authorization}'
+                }
+            else:
+                msg_headers = message.headers #####################################################################
+            await self.handle_order(msg_json, msg_headers)
             
         await message.ack()
 
     # Tworzy oauth token potrzebny do stworzenia zamówienia
-    async def create_oauth_token(self, msg_json):
+    def create_oauth_token(self, msg_json):
         try:
             oauth_response = requests.post(oauth_url, data=msg_json)
-            print("Access token: " + oauth_response.json().get('access_token'))
+            oauth_token = oauth_response.json().get('access_token')
+            print("Access token: " + oauth_token)
             
-            return oauth_response
+            return oauth_token
         
         except Exception as e:
             print(f"An error occurred while creating oauth token: {e}")
-            return e
 
     # Tworzy zamówienie
-    async def create_order(self, msg_json, msg_headers):
+    def create_order(self, msg_json, msg_headers):
         try:
             order_response = requests.post(order_url, json=msg_json, headers=msg_headers)
             print("Redirecting user to PayU payment page...")
             webbrowser.open(order_response.url)
-
             order_id = order_response.url.split('?orderId=')[1].split('&')[0]
-
             return order_id
 
         except Exception as e:
@@ -94,18 +96,16 @@ class RabbitMQClient:
             return e
 
     # Sprawdza status zamówienia po Id
-    async def check_status_order(self, msg_headers, order_id):
+    def check_status_order(self, msg_headers, order_id):
         try:
             # Adding current orderId to url
             status_url = f"{order_url}/{order_id}"
-        
             # Making the GET request
             status_response = requests.get(status_url, headers=msg_headers)
-
             # Getting status of the order
             status = status_response.json().get('orders', [{}])[0].get('status')
-
             return status
+        
         except Exception as e:
             print(f"An error occurred while checking status of an order: {e}")
             return e  
@@ -113,25 +113,35 @@ class RabbitMQClient:
     # Tworzy zamówienie, sprawdza jego status i wysyła powiadomienia
     async def handle_order(self, msg_json, msg_headers):
         order_status = 'NEW'
+        processing_done = False
+
         try:
-            # If Oauth token bad:
-                # Robienie tokena
-            
             # Stórz order i przekieruj na stronę 
             order_id = self.create_order(msg_json, msg_headers)
 
-            # Sprawdzaj order 
+            # Wyślij wiadomości w zależności od statusu zamówienia
             while (order_status != 'CANCELED' and order_status != 'COMPLETED'):
                 order_status = self.check_status_order(msg_headers, order_id)
+                print(order_status)
+                # Wyślij wiadomość PENDING do notifications
+                if (order_status == 'PENDING') and not processing_done:
+                    await self.send_data_to_queue({"status": order_status}, "notifications.request")
+                    processing_done = True
+                    print(order_status)
                 await asyncio.sleep(1)
-            
+
             if (order_status == 'CANCELED'):
-                # Wyślij wiadomość CANCELED
-                pass
+                # Wyślij wiadomość CANCELED do web i notifications
+                await self.send_data_to_queue({"status": order_status}, "payment.response.web")
+                await self.send_data_to_queue({"status": order_status}, "notifications.request")
+                print(order_status)
             elif (order_status == 'COMPLETED'):
-                # Wyświj wiadomość COMPLETED wysyłam do notifications.request (michał) i do payment.response.web (serwis web)
-                pass
-            return 0
+                # Wyświj wiadomość COMPLETED do web i notifications
+                await self.send_data_to_queue({"status": order_status}, "payment.response.web")
+                await self.send_data_to_queue({"status": order_status}, "notifications.request")
+                print(order_status)
+    
+            return order_status
         
         except Exception as e:
             print(f"An error occurred while handling order: {e}")
