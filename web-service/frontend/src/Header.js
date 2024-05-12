@@ -1,11 +1,27 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import AuthContext from './AuthContext';
 
 function Header() {
-    const { isLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn, hasPremium, email, setIsLoggedIn, setHasPremium, setEmail } = useContext(AuthContext);
+
+    console.log("login:", isLoggedIn);
+    console.log("hasPremium:", hasPremium);
+
+    const handleSignOut = async () => {
+        setEmail("");
+        setHasPremium(false);
+        setIsLoggedIn(false);
+        Cookies.remove('isLoggedIn');
+        Cookies.remove('hasPremium');
+        Cookies.remove('email');
+        await fetch(`http://localhost:8000/session/${email}`, {
+            method: 'DELETE'
+        });
+    };
 
     return (
         <AppBar position="sticky" sx={{ height: '60px' }}>
@@ -14,11 +30,14 @@ function Header() {
                     Clone.gg
                 </Typography>
                 <Container sx={{ flexGrow: 1 }} />
-                {isLoggedIn && (
+                {(isLoggedIn && !hasPremium) ? (
                     <Button color="inherit" component={Link} to="/premium">Premium</Button>
-                )}
+                ) : <></>}
                 <Button color="inherit" component={Link} to="/">Home</Button>
-                <Button color="inherit" component={Link} to="/login">Log In</Button>
+                {isLoggedIn ?
+                    <Button color="inherit" onClick={handleSignOut}>Sign out</Button>
+                    : <Button color="inherit" component={Link} to="/login">Log In</Button>
+                }
             </Toolbar>
         </AppBar>
     );

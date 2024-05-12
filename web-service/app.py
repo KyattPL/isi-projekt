@@ -6,7 +6,7 @@ import time
 from fastapi import Depends, FastAPI, Request, HTTPException, BackgroundTasks
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from pydantic import BaseModel
@@ -139,8 +139,24 @@ async def google_auth_callback(request: Request):
                            "last_activity": datetime.now()}
 
         db.insert_user_into_db(email, name)
+        userObj = db.get_user_from_db(email)
 
-        return JSONResponse({"email": email, "status": "OK"})
+        if userObj is None:
+            hasPremium = False
+
+        hasPremium = False if userObj[3] == 0 else True
+
+        html_content = f"""
+        <html>
+        <body>
+            <script>
+                window.opener.postMessage({{ "email": "{email}", "status": "OK", "hasPremium": "{hasPremium}"}}, "*");
+                window.close();
+            </script>
+        </body>
+        </html>
+        """
+        return HTMLResponse(content=html_content)
 
     # google drive files request:
     # drive = build('drive', 'v2', credentials=credentials)
@@ -151,6 +167,16 @@ async def google_auth_callback(request: Request):
     # else:
     #     for item in items:
     #         print(f"File Name: {item['name']}, File ID: {item['id']}")
+
+
+@app.delete("/session/{email}")
+async def remove_user_from_session(email: str):
+    if email in sessions:
+        del sessions[email]
+        return {"message": f"User {email} removed from session."}
+    else:
+        raise HTTPException(
+            status_code=404, detail="User not found in session.")
 
 
 @app.get("/")

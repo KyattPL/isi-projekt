@@ -42,7 +42,7 @@ def __create_users_table():
 
     c.execute('''CREATE TABLE IF NOT EXISTS USERS
                  (id INTEGER PRIMARY KEY, userEmail TEXT,
-                 userCredentials TEXT)
+                 userCredentials TEXT, hasPremium INTEGER)
               ''')
 
     conn.commit()
@@ -54,7 +54,7 @@ def __insert_user(userEmail, userCredentials):
     conn = sqlite3.connect(F'{path}/users.db')
     c = conn.cursor()
 
-    c.execute('''INSERT INTO USERS (userEmail, userCredentials) VALUES (?, ?)''',
+    c.execute('''INSERT INTO USERS (userEmail, userCredentials, hasPremium) VALUES (?, ?, 0)''',
               (userEmail, userCredentials))
 
     conn.commit()
@@ -64,3 +64,16 @@ def __insert_user(userEmail, userCredentials):
 def insert_user_into_db(userEmail, userCredentials):
     __create_users_table()
     __insert_user(userEmail, userCredentials)
+
+
+def get_user_from_db(userEmail):
+    path = os.path.join(os.path.dirname(__file__))
+    conn = sqlite3.connect(F'{path}/users.db')
+    c = conn.cursor()
+
+    c.execute('''SELECT * FROM USERS WHERE userEmail = ?''', (userEmail,))
+    userObj = c.fetchone()
+
+    conn.commit()
+    conn.close()
+    return userObj

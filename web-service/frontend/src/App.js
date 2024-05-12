@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container } from '@mui/material';
+import Cookies from 'js-cookie';
 
 import './app.css';
 import AuthContext from './AuthContext';
@@ -11,14 +12,23 @@ import SearchResults from './SearchResults';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [hasPremium, setHasPremium] = useState(false);
+    const [email, setEmail] = useState("");
 
-    // Example function to simulate login
-    const handleLogin = () => {
-        setIsLoggedIn(true);
-    };
+    useEffect(() => {
+        const lc = Cookies.get('isLoggedIn');
+        const pc = Cookies.get('hasPremium');
+        const ec = Cookies.get('email');
+
+        if (lc && pc && ec) {
+            setIsLoggedIn(lc === 'true');
+            setHasPremium(pc === 'true');
+            setEmail(ec);
+        }
+    }, []);
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, handleLogin }}>
+        <AuthContext.Provider value={{ isLoggedIn, hasPremium, email, setIsLoggedIn, setHasPremium, setEmail }}>
             <BrowserRouter>
                 <Header />
                 <div className='mainContent'>
