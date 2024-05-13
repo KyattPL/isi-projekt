@@ -10,21 +10,30 @@ import Home from './Home';
 import Login from './Login';
 import SearchResults from './SearchResults';
 import Premium from './Premium';
+import Toast from './Toast';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [hasPremium, setHasPremium] = useState(false);
     const [email, setEmail] = useState("");
 
+    const [loginToastOpen, setLoginToastOpen] = useState(false); // State for Toast visibility
+
     useEffect(() => {
         const lc = Cookies.get('isLoggedIn');
         const pc = Cookies.get('hasPremium');
         const ec = Cookies.get('email');
+        const justLoggedIn = localStorage.getItem('justLoggedIn');
 
         if (lc && pc && ec) {
             setIsLoggedIn(lc === 'true');
             setHasPremium(pc === 'true');
             setEmail(ec);
+
+            if (justLoggedIn) {
+                setLoginToastOpen(true);
+                localStorage.removeItem('justLoggedIn');
+            }
         }
     }, []);
 
@@ -42,6 +51,7 @@ function App() {
                         </Routes>
                     </Container>
                 </div>
+                <Toast message="Successfully logged in." isOpen={loginToastOpen} setIsOpen={setLoginToastOpen} />
             </BrowserRouter>
         </AuthContext.Provider>
     );

@@ -19,6 +19,9 @@ const Login = () => {
             Cookies.set('isLoggedIn', true);
             Cookies.set('hasPremium', event.data.hasPremium === 'True');
             Cookies.set('email', event.data.email);
+
+            localStorage.setItem('justLoggedIn', 'true');
+            window.location.assign("http://localhost:3000");
         };
 
         window.addEventListener("message", handleMessage);

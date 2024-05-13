@@ -1,2 +1,4 @@
 INFO:googleapiclient.discovery_cache:file_cache is only supported with oauth2client<4.0.0
+INFO:rabbit_client:Message is valid.
+INFO:googleapiclient.discovery_cache:file_cache is only supported with oauth2client<4.0.0
 INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
