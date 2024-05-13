@@ -103,7 +103,7 @@ async def google_auth_redirect():
 
 
 @app.get("/auth/google/callback")
-async def google_auth_callback(request: Request):
+async def google_auth_callback(request: Request, rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
     extracted_code = request.query_params.get('code')
     if not extracted_code:
         raise HTTPException(status_code=400, detail="Code not found")
@@ -138,11 +138,13 @@ async def google_auth_callback(request: Request):
         sessions[email] = {"name": name, "email": email,
                            "last_activity": datetime.now()}
 
-        db.insert_user_into_db(email, name)
         userObj = db.get_user_from_db(email)
 
         if userObj is None:
+            db.insert_user_into_db(email, name)
             hasPremium = False
+            rabbit_client_instance.send_data_to_notification_service(
+                {"action": "NEW_USER", "email": email})
 
         hasPremium = False if userObj[3] == 0 else True
 
@@ -219,6 +221,12 @@ async def next10_matches_data_by_riot_id(gameName, tagLine, startIndex, rabbit_c
         matches_data.append(resp)
 
     return matches_data
+
+
+@app.get("/buy_premium/{email}")
+async def buy_premium(email, rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
+    await rabbit_client_instance.send_data_to_payment_service({"action": "NEW_SUBSCRIPTION", "email": email})
+    return
 
 
 @app.middleware("http")

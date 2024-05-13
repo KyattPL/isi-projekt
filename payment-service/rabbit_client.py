@@ -9,6 +9,7 @@ from aio_pika import connect_robust, Message
 oauth_url = 'https://secure.snd.payu.com/pl/standard/user/oauth/authorize'
 order_url = 'https://secure.snd.payu.com/api/v2_1/orders'
 
+
 class RabbitMQClient:
     def __init__(self, loop):
         self.loop = loop
@@ -22,10 +23,10 @@ class RabbitMQClient:
         # Nawiązywanie połączenia z RabbitMQ
         self.connection = await connect_robust(host="localhost", port=5672, loop=self.loop)
         self.channel = await self.connection.channel()  # Tworzenie kanału
-        self.queue = await self.channel.declare_queue('payments.request', durable=False)
+        self.queue = await self.channel.declare_queue('payment.request', durable=False)
         await self.queue.consume(self.process_incoming_message, no_ack=False)
         return self.connection
-    
+
     async def validate_message(self, action, schema):
         try:
             jsonschema.validate(instance=action, schema=schema)
@@ -37,20 +38,20 @@ class RabbitMQClient:
         except json.JSONDecodeError:
             print("Message is not a valid JSON.")
             return False
-        
+
     async def send_data_to_queue(self, data, routing_key):
         data_bytes = json.dumps(data).encode()
         message = Message(body=data_bytes)
         await self.channel.default_exchange.publish(message, routing_key)
-        print ("Sent data to queue: " + routing_key)
+        print("Sent data to queue: " + routing_key)
 
     async def process_incoming_message(self, message):
         msg = message.body.decode()
         msg_json = json.loads(msg)
-        
+
         if not await self.validate_message(msg_json, schemas.payment_service_request_schema):
             return
-        
+
         action = msg_json['action']
 
         # CO 12 H BEDZIE REFRESH
@@ -65,9 +66,9 @@ class RabbitMQClient:
                     'Authorization': f'{authorization}'
                 }
             else:
-                msg_headers = message.headers #####################################################################
+                msg_headers = message.headers
             await self.handle_order(msg_json, msg_headers)
-            
+
         await message.ack()
 
     # Tworzy oauth token potrzebny do stworzenia zamówienia
@@ -76,16 +77,17 @@ class RabbitMQClient:
             oauth_response = requests.post(oauth_url, data=msg_json)
             oauth_token = oauth_response.json().get('access_token')
             print("Access token: " + oauth_token)
-            
+
             return oauth_token
-        
+
         except Exception as e:
             print(f"An error occurred while creating oauth token: {e}")
 
     # Tworzy zamówienie
     def create_order(self, msg_json, msg_headers):
         try:
-            order_response = requests.post(order_url, json=msg_json, headers=msg_headers)
+            order_response = requests.post(
+                order_url, json=msg_json, headers=msg_headers)
             print("Redirecting user to PayU payment page...")
             webbrowser.open(order_response.url)
             order_id = order_response.url.split('?orderId=')[1].split('&')[0]
@@ -103,20 +105,21 @@ class RabbitMQClient:
             # Making the GET request
             status_response = requests.get(status_url, headers=msg_headers)
             # Getting status of the order
-            status = status_response.json().get('orders', [{}])[0].get('status')
+            status = status_response.json().get(
+                'orders', [{}])[0].get('status')
             return status
-        
+
         except Exception as e:
             print(f"An error occurred while checking status of an order: {e}")
-            return e  
-    
+            return e
+
     # Tworzy zamówienie, sprawdza jego status i wysyła powiadomienia
     async def handle_order(self, msg_json, msg_headers):
         order_status = 'NEW'
         processing_done = False
 
         try:
-            # Stórz order i przekieruj na stronę 
+            # Stórz order i przekieruj na stronę
             order_id = self.create_order(msg_json, msg_headers)
 
             # Wyślij wiadomości w zależności od statusu zamówienia
@@ -140,14 +143,13 @@ class RabbitMQClient:
                 await self.send_data_to_queue({"status": order_status}, "payment.response.web")
                 await self.send_data_to_queue({"status": order_status}, "notifications.request")
                 print(order_status)
-    
+
             return order_status
-        
+
         except Exception as e:
             print(f"An error occurred while handling order: {e}")
-            return e  
+            return e
 
     async def consume(self):
         await self.connect_and_consume()
         await self.queue.consume(self.process_incoming_message, no_ack=False)
-

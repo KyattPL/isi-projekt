@@ -84,3 +84,5 @@ analysis_service_reply_schema = {}
 payment_service_request_schema = {}
 
 payment_service_reply_schema = {}
+
+notification_service_request_schema = {}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Container } from '@mui/material';
 import Cookies from 'js-cookie';
 
@@ -9,6 +9,7 @@ import Header from './Header';
 import Home from './Home';
 import Login from './Login';
 import SearchResults from './SearchResults';
+import Premium from './Premium';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,6 +38,7 @@ function App() {
                             <Route path="/" exact element={<Home />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/search-results/:gameName/:tagLine" element={<SearchResults />} />
+                            <Route path="/premium" element={isLoggedIn ? <Premium /> : <Navigate to="/" replace={true} />} />
                         </Routes>
                     </Container>
                 </div>

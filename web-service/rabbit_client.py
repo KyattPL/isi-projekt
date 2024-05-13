@@ -94,32 +94,34 @@ class RabbitMQClient:
             return
 
         db.create_snapshot_table()
+
         for champ in msg_json:
             db.insert_champ_to_snapshot(*champ)
         await message.ack()
+        return
 
-    async def send_data_to_analysis_service(self, data):
-        data_bytes = json.dumps(data).encode()
-        message = Message(
-            body=data_bytes, reply_to=self.queues["analysis.reply"].name)
+    # async def send_data_to_analysis_service(self, data):
+    #     data_bytes = json.dumps(data).encode()
+    #     message = Message(
+    #         body=data_bytes, reply_to=self.queues["analysis.reply"].name)
 
-        if not await self.validate_message(data, schemas.analysis_service_request_schema):
-            logging.error(
-                "Message is invalid. Not sending to Data Analysis service.")
-            return
+    #     if not await self.validate_message(data, schemas.analysis_service_request_schema):
+    #         logging.error(
+    #             "Message is invalid. Not sending to Data Analysis service.")
+    #         return
 
-        await self.channel.default_exchange.publish(message, routing_key="analysis.request")
+    #     await self.channel.default_exchange.publish(message, routing_key="analysis.request")
 
-        while self.response is None:
-            await asyncio.sleep(0.1)
+    #     while self.response is None:
+    #         await asyncio.sleep(0.1)
 
-        if not await self.validate_message(self.response, schemas.analysis_service_reply_schema):
-            logging.error("Response from Data Analysis service is invalid.")
-            return
+    #     if not await self.validate_message(self.response, schemas.analysis_service_reply_schema):
+    #         logging.error("Response from Data Analysis service is invalid.")
+    #         return
 
-        resp = self.response
-        self.response = None
-        return resp
+    #     resp = self.response
+    #     self.response = None
+    #     return resp
 
     async def process_payment_service_message(self, message):
 
@@ -143,15 +145,26 @@ class RabbitMQClient:
                 "Message is invalid. Not sending to Payment service.")
             return
 
-        await self.channel.default_exchange.publish(message, routing_key="analysis.request")
+        await self.channel.default_exchange.publish(message, routing_key="payment.request")
 
-        while self.response is None:
-            await asyncio.sleep(0.1)
+        # while self.response is None:
+        #     await asyncio.sleep(0.1)
 
-        if not await self.validate_message(self.response, schemas.payment_service_reply_schema):
-            logging.error("Response from Payment service is invalid.")
+        # if not await self.validate_message(self.response, schemas.payment_service_reply_schema):
+        #     logging.error("Response from Payment service is invalid.")
+        #     return
+
+        # resp = self.response
+        # self.response = None
+        # return resp
+
+    async def send_data_to_notification_service(self, data):
+        data_bytes = json.dumps(data).encode()
+        message = Message(body=data_bytes)
+
+        if not await self.validate_message(data, schemas.notification_service_request_schema):
+            logging.error(
+                "Message is invalid. Not sending to Notification service.")
             return
 
-        resp = self.response
-        self.response = None
-        return resp
+        await self.channel.default_exchange.publish(message, routing_key="notification.request")

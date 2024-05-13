@@ -1,7 +1,8 @@
 import React, { useEffect, useContext } from "react";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Cookies from 'js-cookie';
 
+import './Login.css';
 import AuthContext from "./AuthContext";
 
 const Login = () => {
@@ -39,10 +40,16 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <Typography>Log in</Typography>
-            <Button onClick={initiateGoogleLogin}>Sign in with Google</Button>
-        </div>
+        <Box className="login-page">
+            <Box className="login-container">
+                <Typography variant="h4" component="div" className="login-title">
+                    Log in
+                </Typography>
+                <Button variant="contained" color="primary" onClick={initiateGoogleLogin} className="login-button">
+                    Sign in with Google
+                </Button>
+            </Box>
+        </Box>
     );
 };
 
