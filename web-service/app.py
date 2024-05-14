@@ -225,8 +225,14 @@ async def next10_matches_data_by_riot_id(gameName, tagLine, startIndex, rabbit_c
 
 @app.get("/buy_premium/{email}")
 async def buy_premium(email, rabbit_client_instance: RabbitMQClient = Depends(get_rabbit_client)):
-    await rabbit_client_instance.send_data_to_payment_service({"action": "NEW_SUBSCRIPTION", "email": email})
+    print(email)
+    await rabbit_client_instance.send_data_to_payment_service({"action": "CREATE_ORDER", "email": email})
     return
+
+
+@app.get("/get_snapshot_for_champ/{champ}")
+async def get_snapshot_for_champ(champ):
+    return db.get_champ_from_snapshot(champ)
 
 
 @app.middleware("http")

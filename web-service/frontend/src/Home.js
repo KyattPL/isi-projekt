@@ -29,7 +29,7 @@ function Home() {
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="center"
-                height="100vh"
+                height="calc(100vh - 60px)"
             >
                 <Typography variant="h4" component="h1" gutterBottom>
                     Welcome to Clone.gg

@@ -8,20 +8,31 @@ import {
     Button,
 } from "@mui/material";
 
-function MatchInfoCard({ index, match, gameName, tagLine }) {
+function MatchInfoCard({ index, match, gameName, tagLine, isLoggedIn, hasPremium }) {
+
+    const doMatchAnalysis = (playerChamp, playerStats, matchTime) => {
+        fetch(`http://localhost:8000/get_snapshot_for_champ/${playerChamp}`)
+            .then(r => console.log(r.json()));
+    };
+
     let playersObj = match["info"]["participants"];
 
     let playerId = playersObj.findIndex(
         (e) => e["riotIdGameName"] === gameName && e["riotIdTagline"] === tagLine
     );
-    let mins = Math.floor(match["info"]["gameDuration"] / 60);
-    let secs = match["info"]["gameDuration"] % 60;
+
+    let matchTime = match["info"]["gameDuration"];
+    let mins = Math.floor(matchTime / 60);
+    let secs = matchTime % 60;
     let win = playersObj[playerId]["win"];
 
     let backgroundColor = win ? "rgba(0, 0, 255, 0.5)" : "rgba(255, 0, 0, 0.5)";
     let role = playersObj[playerId]["teamPosition"];
     let formattedMins = mins.toString().padStart(2, "0");
     let formattedSecs = secs.toString().padStart(2, "0");
+
+    let playerChamp = playersObj[playerId]["championName"];
+    let playerStats = playersObj[playerId];
 
     return (
         <Card
@@ -57,25 +68,32 @@ function MatchInfoCard({ index, match, gameName, tagLine }) {
                                 component="div"
                                 sx={{ fontWeight: "bold" }}
                             >
-                                Champion: {playersObj[playerId]["championName"]}
+                                Champion: {playerChamp}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Kills: {playersObj[playerId]["kills"]}, Deaths:{" "}
-                                {playersObj[playerId]["deaths"]}, Assists:{" "}
-                                {playersObj[playerId]["assists"]}
+                                Kills: {playerStats["kills"]}, Deaths:{" "}
+                                {playerStats["deaths"]}, Assists:{" "}
+                                {playerStats["assists"]}
                             </Typography>
                         </Box>
                     </Box>
                     <Box>
                         <Typography variant="body2" color="text.secondary">
-                            Champion Level: {playersObj[playerId]["champLevel"]}, Gold Earned:{" "}
-                            {playersObj[playerId]["goldEarned"]}
+                            Champion Level: {playerStats["champLevel"]}, Gold Earned:{" "}
+                            {playerStats["goldEarned"]}
                         </Typography>
                     </Box>
                 </Box>
             </CardContent>
             <CardActions>
-                <Button sx={{ marginLeft: "auto" }}>Analysis</Button>
+                {isLoggedIn && (
+                    <Button
+                        sx={{ marginLeft: "auto", backgroundColor: hasPremium ? "gold" : "gray", color: hasPremium ? "white" : "black" }}
+                        disabled={!hasPremium} onClick={() => doMatchAnalysis(playerChamp, playerStats, matchTime)}
+                    >
+                        Analysis
+                    </Button>
+                )}
             </CardActions>
         </Card>
     );

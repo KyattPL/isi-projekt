@@ -17,7 +17,8 @@ function App() {
     const [hasPremium, setHasPremium] = useState(false);
     const [email, setEmail] = useState("");
 
-    const [loginToastOpen, setLoginToastOpen] = useState(false); // State for Toast visibility
+    const [loginToastOpen, setLoginToastOpen] = useState(false);
+    const [paymentToastOpen, setPaymentToastOpen] = useState(false);
 
     useEffect(() => {
         const lc = Cookies.get('isLoggedIn');
@@ -52,6 +53,7 @@ function App() {
                     </Container>
                 </div>
                 <Toast message="Successfully logged in." isOpen={loginToastOpen} setIsOpen={setLoginToastOpen} />
+                <Toast isOpen={paymentToastOpen} setIsOpen={setPaymentToastOpen} />
             </BrowserRouter>
         </AuthContext.Provider>
     );

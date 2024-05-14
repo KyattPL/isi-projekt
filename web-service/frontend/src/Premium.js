@@ -12,7 +12,7 @@ function Premium() {
     };
 
     return (
-        <Box className="premium-page">
+        <Box className="premium-page" height="calc(100vh - 60px)">
             <Box className="premium-container">
                 <Typography variant="h4" component="div" className="premium-title">
                     Upgrade to Premium

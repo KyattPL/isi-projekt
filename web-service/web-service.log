@@ -1,4 +1,11 @@
-INFO:googleapiclient.discovery_cache:file_cache is only supported with oauth2client<4.0.0
 INFO:rabbit_client:Message is valid.
-INFO:googleapiclient.discovery_cache:file_cache is only supported with oauth2client<4.0.0
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
+ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
+NoneType: None
 INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
+WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.

@@ -77,3 +77,16 @@ def get_user_from_db(userEmail):
     conn.commit()
     conn.close()
     return userObj
+
+
+def get_champ_from_snapshot(champ):
+    path = os.path.join(os.path.dirname(__file__))
+    conn = sqlite3.connect(F'{path}/users.db')
+    c = conn.cursor()
+
+    c.execute('''SELECT * FROM SNAPSHOT WHERE champion = ?''', (champ,))
+    champStats = c.fetchone()
+
+    conn.commit()
+    conn.close()
+    return champStats
