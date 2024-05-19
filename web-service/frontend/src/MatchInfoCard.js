@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Typography,
@@ -9,13 +9,41 @@ import {
 } from "@mui/material";
 
 function MatchInfoCard({ index, match, gameName, tagLine, isLoggedIn, hasPremium }) {
+    const [averages, setAverages] = useState({});
+    const [wasAnalysisClicked, setWasAnalysisClicked] = useState(false);
 
-    const doMatchAnalysis = (playerChamp, playerStats, matchTime) => {
-        fetch(`http://localhost:8000/get_snapshot_for_champ/${playerChamp}`)
-            .then(r => console.log(r.json()));
+    const doMatchAnalysis = async (playerChamp, playerStats, matchTime) => {
+        try {
+            const response = await fetch(`http://localhost:8000/get_snapshot_for_champ/${playerChamp}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data);
+            setAverages({
+                kills: data[1] * matchTime,
+                deaths: data[2] * matchTime,
+                assists: data[3] * matchTime,
+                lvl: data[4] * matchTime,
+                gold: data[5] * matchTime,
+                dmgDealt: data[6] * matchTime,
+                dmgTaken: data[7] * matchTime,
+                csAvg: data[9] * matchTime,
+                visionAvg: data[10] * matchTime
+            });
+            setWasAnalysisClicked(true);
+        } catch (error) {
+            console.error("Failed to fetch match analysis:", error);
+        }
     };
 
-    console.log(match);
+    const getAnalysisFormattedNum = (statValue, statAverage, isAboveGood = true) => {
+        if (statValue > statAverage && isAboveGood) return <span style={{ color: "green", marginRight: "16px" }}>+{(statValue - statAverage).toFixed(2)}</span>;
+        if (statValue < statAverage && !isAboveGood) return <span style={{ color: "green", marginRight: "16px" }}>+{(statAverage - statValue).toFixed(2)}</span>;
+        if (statValue > statAverage && !isAboveGood) return <span style={{ color: "red", marginRight: "16px" }}>{(statAverage - statValue).toFixed(2)}</span>;
+        if (statValue < statAverage && isAboveGood) return <span style={{ color: "red", marginRight: "16px" }}>{(statValue - statAverage).toFixed(2)}</span>;
+        return <span style={{ color: "gray" }}>{statValue}</span>;;
+    };
 
     let playersObj = match["info"]["participants"];
 
@@ -35,6 +63,8 @@ function MatchInfoCard({ index, match, gameName, tagLine, isLoggedIn, hasPremium
 
     let playerChamp = playersObj[playerId]["championName"];
     let playerStats = playersObj[playerId];
+
+    console.log(playerStats);
 
     return (
         <Card
@@ -73,17 +103,75 @@ function MatchInfoCard({ index, match, gameName, tagLine, isLoggedIn, hasPremium
                                 Champion: {playerChamp}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                Kills: {playerStats["kills"]}, Deaths:{" "}
-                                {playerStats["deaths"]}, Assists:{" "}
-                                {playerStats["assists"]}
+                                Kills: {playerStats["kills"]},
+                                Deaths: {playerStats["deaths"]},
+                                Assists: {playerStats["assists"]}
                             </Typography>
+                            {wasAnalysisClicked && (
+                                <Typography variant="body2">
+                                    {getAnalysisFormattedNum(playerStats['kills'], averages['kills'])}
+                                    {getAnalysisFormattedNum(playerStats['deaths'], averages['deaths'], false)}
+                                    {getAnalysisFormattedNum(playerStats['assists'], averages['assists'])}
+                                </Typography>
+                            )}
                         </Box>
                     </Box>
                     <Box>
                         <Typography variant="body2" color="text.secondary">
-                            Champion Level: {playerStats["champLevel"]}, Gold Earned:{" "}
-                            {playerStats["goldEarned"]}
+                            Champion Exp: {playerStats["champExperience"]}
                         </Typography>
+                        {wasAnalysisClicked && (
+                            <Typography variant="body2">
+                                {getAnalysisFormattedNum(playerStats['champExperience'], averages['lvl'])}
+                            </Typography>
+                        )}
+                        <br />
+                        <Typography variant="body2" color="text.secondary">
+                            Gold Earned: {playerStats["goldEarned"]}
+                        </Typography>
+                        {wasAnalysisClicked && (
+                            <Typography variant="body2">
+                                {getAnalysisFormattedNum(playerStats['goldEarned'], averages['gold'])}
+                            </Typography>
+                        )}
+                    </Box>
+                    <Box>
+                        <Typography variant="body2" color="text.secondary">
+                            Dmg done: {playerStats["totalDamageDealtToChampions"]}
+                        </Typography>
+                        {wasAnalysisClicked && (
+                            <Typography variant="body2">
+                                {getAnalysisFormattedNum(playerStats['totalDamageDealtToChampions'], averages['dmgDealt'])}
+                            </Typography>
+                        )}
+                        <br />
+                        <Typography variant="body2" color="text.secondary">
+                            Dmg taken: {playerStats["totalDamageTaken"]}
+                        </Typography>
+                        {wasAnalysisClicked && (
+                            <Typography variant="body2">
+                                {getAnalysisFormattedNum(playerStats['totalDamageTaken'], averages['dmgTaken'])}
+                            </Typography>
+                        )}
+                    </Box>
+                    <Box>
+                        <Typography variant="body2" color="text.secondary">
+                            CS: {playerStats["totalMinionsKilled"]}
+                        </Typography>
+                        {wasAnalysisClicked && (
+                            <Typography variant="body2">
+                                {getAnalysisFormattedNum(playerStats['totalMinionsKilled'], averages['csAvg'])}
+                            </Typography>
+                        )}
+                        <br />
+                        <Typography variant="body2" color="text.secondary">
+                            Vision score: {playerStats["visionScore"]}
+                        </Typography>
+                        {wasAnalysisClicked && (
+                            <Typography variant="body2">
+                                {getAnalysisFormattedNum(playerStats['visionScore'], averages['visionAvg'])}
+                            </Typography>
+                        )}
                     </Box>
                 </Box>
             </CardContent>
