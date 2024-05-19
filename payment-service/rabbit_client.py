@@ -16,7 +16,7 @@ class RabbitMQClient:
         self.connection = None
         self.channel = None
         self.queue = None
-        self.token = None
+        self.token = "93de592d-935e-45ec-a0cd-564fc9469f52"
         self.loop.create_task(self.consume())
 
     async def connect_and_consume(self):
@@ -47,7 +47,10 @@ class RabbitMQClient:
 
     async def process_incoming_message(self, message):
         msg = message.body.decode()
-        msg_json = json.loads(msg)
+        temp_shit = json.loads(msg)
+
+        msg_json = {"action": "CREATE_ORDER", "customerIp": "127.0.0.1", "merchantPosId": "478129", "description": "CloneGG",
+                    "currencyCode": "PLN", "totalAmount": "1", "products": [{"name": "Konto premium", "unitPrice": "1", "quantity": "1"}]}
 
         if not await self.validate_message(msg_json, schemas.payment_service_request_schema):
             return
@@ -67,7 +70,7 @@ class RabbitMQClient:
                 }
             else:
                 msg_headers = message.headers
-            await self.handle_order(msg_json, msg_headers)
+            await self.handle_order(msg_json, msg_headers, temp_shit['email'])
 
         await message.ack()
 
@@ -86,12 +89,15 @@ class RabbitMQClient:
     # Tworzy zamówienie
     def create_order(self, msg_json, msg_headers):
         try:
+            msg_json['continueUrl'] = 'http://localhost:3000/premium'
+            msg_json['notifyUrl'] = 'http://localhost:8000/notify_premium_order'
             order_response = requests.post(
                 order_url, json=msg_json, headers=msg_headers)
             print("Redirecting user to PayU payment page...")
-            webbrowser.open(order_response.url)
-            order_id = order_response.url.split('?orderId=')[1].split('&')[0]
-            return order_id
+            return order_response.url
+            # webbrowser.open(order_response.url)
+            # order_id = order_response.url.split('?orderId=')[1].split('&')[0]
+            # return order_id
 
         except Exception as e:
             print(f"An error occurred while creating an order: {e}")
@@ -114,13 +120,16 @@ class RabbitMQClient:
             return e
 
     # Tworzy zamówienie, sprawdza jego status i wysyła powiadomienia
-    async def handle_order(self, msg_json, msg_headers):
+    async def handle_order(self, msg_json, msg_headers, email):
         order_status = 'NEW'
         processing_done = False
 
         try:
             # Stórz order i przekieruj na stronę
-            order_id = self.create_order(msg_json, msg_headers)
+            order_url = self.create_order(msg_json, msg_headers)
+            requests.post(
+                f"http://localhost:8000/receive_payment_url/{email}", data=order_url)
+            order_id = order_url.split('?orderId=')[1].split('&')[0]
 
             # Wyślij wiadomości w zależności od statusu zamówienia
             while (order_status != 'CANCELED' and order_status != 'COMPLETED'):
@@ -128,20 +137,20 @@ class RabbitMQClient:
                 print(order_status)
                 # Wyślij wiadomość PENDING do notifications
                 if (order_status == 'PENDING') and not processing_done:
-                    await self.send_data_to_queue({"status": order_status}, "notifications.request")
+                    await self.send_data_to_queue({"status": order_status, "email": email}, "notifications.request")
                     processing_done = True
                     print(order_status)
                 await asyncio.sleep(1)
 
             if (order_status == 'CANCELED'):
                 # Wyślij wiadomość CANCELED do web i notifications
-                await self.send_data_to_queue({"status": order_status}, "payment.response.web")
-                await self.send_data_to_queue({"status": order_status}, "notifications.request")
+                await self.send_data_to_queue({"status": order_status, "email": email}, "payment.response.web")
+                await self.send_data_to_queue({"action": "SEND_PAYMENT_STATUS", "userEmail": email, "paymentStatus": order_status}, "notifications.request")
                 print(order_status)
             elif (order_status == 'COMPLETED'):
                 # Wyświj wiadomość COMPLETED do web i notifications
-                await self.send_data_to_queue({"status": order_status}, "payment.response.web")
-                await self.send_data_to_queue({"status": order_status}, "notifications.request")
+                await self.send_data_to_queue({"status": order_status, "email": email}, "payment.response.web")
+                await self.send_data_to_queue({"action": "SEND_PAYMENT_STATUS", "userEmail": email, "paymentStatus": order_status}, "notifications.request")
                 print(order_status)
 
             return order_status

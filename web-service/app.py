@@ -6,7 +6,7 @@ import time
 from fastapi import Depends, FastAPI, Request, HTTPException, BackgroundTasks
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from pydantic import BaseModel
@@ -234,6 +234,34 @@ async def buy_premium(email, rabbit_client_instance: RabbitMQClient = Depends(ge
     print(email)
     await rabbit_client_instance.send_data_to_payment_service({"action": "CREATE_ORDER", "email": email})
     return
+
+
+@app.post("/receive_payment_url/{email}")
+async def receive_payment_url(request: Request, email):
+    resp = await request.body()
+    decoded = resp.decode("utf-8")
+    sessions[email]['paymentUrl'] = decoded
+    return
+
+
+@app.get("/get_payment_url/{email}")
+async def get_payment_url(email):
+    if 'paymentUrl' in sessions[email].keys():
+        return sessions[email]['paymentUrl']
+    else:
+        return "NO_URL"
+
+
+@app.post("/notify_premium_order")
+async def notify_premium_order(request: Request):
+    body = await request.body()
+    print(body)
+    return Response(status_code=200)
+
+
+@app.get("/is_user_premium/{email}")
+async def is_user_premium(email):
+    return db.user_has_premium(email)
 
 
 @app.get("/get_snapshot_for_champ/{champ}")

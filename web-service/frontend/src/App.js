@@ -21,6 +21,17 @@ function App() {
     const [paymentToastOpen, setPaymentToastOpen] = useState(false);
 
     useEffect(() => {
+        if (email) {
+            fetch(`http://localhost:8000/is_user_premium/${email}`)
+                .then(r => r.json())
+                .then(r => {
+                    Cookies.set('hasPremium', r);
+                    setHasPremium(r);
+                });
+        }
+    }, [email]);
+
+    useEffect(() => {
         const lc = Cookies.get('isLoggedIn');
         const pc = Cookies.get('hasPremium');
         const ec = Cookies.get('email');

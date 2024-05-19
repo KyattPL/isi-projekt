@@ -15,6 +15,8 @@ function MatchInfoCard({ index, match, gameName, tagLine, isLoggedIn, hasPremium
             .then(r => console.log(r.json()));
     };
 
+    console.log(match);
+
     let playersObj = match["info"]["participants"];
 
     let playerId = playersObj.findIndex(

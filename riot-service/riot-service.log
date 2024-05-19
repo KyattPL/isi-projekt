@@ -1,700 +1,969 @@
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Trymbi/001?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Trymbi/001?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Trymbi/001?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Trymbi/001?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-ERROR:asyncio:Exception in callback _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43
-handle: <Handle _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43>
-Traceback (most recent call last):
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Task exception was never retrieved
-future: <Task finished name='Task-14' coro=<consumer() done, defined at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py:31> exception=KeyError('puuid')>
-Traceback (most recent call last):
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py", line 37, in consumer
-    return await create_task(callback, message)
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Exception in callback _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43
-handle: <Handle _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43>
-Traceback (most recent call last):
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Exception in callback _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43
-handle: <Handle _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43>
-Traceback (most recent call last):
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Task exception was never retrieved
-future: <Task finished name='Task-19' coro=<consumer() done, defined at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py:31> exception=KeyError('puuid')>
-Traceback (most recent call last):
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py", line 37, in consumer
-    return await create_task(callback, message)
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Task exception was never retrieved
-future: <Task finished name='Task-15' coro=<consumer() done, defined at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py:31> exception=KeyError('puuid')>
-Traceback (most recent call last):
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py", line 37, in consumer
-    return await create_task(callback, message)
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Exception in callback _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43
-handle: <Handle _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43>
-Traceback (most recent call last):
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Task exception was never retrieved
-future: <Task finished name='Task-13' coro=<consumer() done, defined at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py:31> exception=KeyError('puuid')>
-Traceback (most recent call last):
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py", line 37, in consumer
-    return await create_task(callback, message)
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/metadata?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/info?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/status?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
 INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-ERROR:asyncio:Exception in callback _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43
-handle: <Handle _task_done(<Task finishe...rror('puuid')>) at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py:43>
-Traceback (most recent call last):
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
-ERROR:asyncio:Task exception was never retrieved
-future: <Task finished name='Task-644' coro=<consumer() done, defined at F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py:31> exception=KeyError('puuid')>
-Traceback (most recent call last):
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\queue.py", line 37, in consumer
-    return await create_task(callback, message)
-  File "C:\Python310\lib\asyncio\events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "F:\uczelnia\magister\ISI\projekt\data-analysis-service\lib\site-packages\aio_pika\tools.py", line 47, in _task_done
-    raise exc
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\rabbit_client.py", line 122, in process_incoming_message
-    data = await strategy.execute(self, msg_json)
-  File "F:\uczelnia\magister\ISI\projekt\riot-service\request_actions.py", line 36, in execute
-    if client.redisObj.exists(acc['puuid']):
-KeyError: 'puuid'
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/metadata?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/info?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/metadata?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/info?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938348705?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938158854?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938104417?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6938056070?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/metadata?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937737038?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/info?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937323921?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937289292?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/metadata?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6937010965?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/info?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936212017?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8&type=ranked&count=10
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6936146745?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
 INFO:rabbit_client:Message is valid.
-INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/metadata?api_key=RGAPI-3d0a5601-7832-40d5-ba30-9e9e17ebbca8
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
 INFO:rabbit_client:Message is valid.
-ERROR:aiormq.connection:Unexpected connection close from remote "amqp://guest:******@localhost:5672//", Connection.Close(reply_code=320, reply_text="CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'")
-NoneType: None
-INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
-INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
-WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
-INFO:aio_pika.robust_connection:Connection to amqp://guest:******@localhost:5672// closed. Reconnecting after 5 seconds.
-WARNING:aio_pika.robust_connection:Connection attempt to "amqp://guest:******@localhost:5672//" failed: Server connection unexpectedly closed. Read 0 bytes but 1 bytes expected. Reconnecting after 5 seconds.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/riot/account/v1/accounts/by-riot-id/Upset/asdff?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/4htiPM5NTJ9Gv9fv2m_1wWbWoeRSoKaui1GfJIzHYwljI9o8u8QzOnfexMI57pPQ-RnEnNB0MgULxA/ids?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704&type=ranked&count=10
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944464889?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944200705?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6944140172?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943841843?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943828013?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6943788739?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942958327?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942926817?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942900845?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:Message is valid.
+INFO:rabbit_client:https://europe.api.riotgames.com/lol/match/v5/matches/EUW1_6942566010?api_key=RGAPI-c2b6655c-e149-4f8c-9adb-c2893a6ca704
+INFO:rabbit_client:Message is valid.

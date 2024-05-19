@@ -81,7 +81,7 @@ def get_user_from_db(userEmail):
 
 def get_champ_from_snapshot(champ):
     path = os.path.join(os.path.dirname(__file__))
-    conn = sqlite3.connect(F'{path}/users.db')
+    conn = sqlite3.connect(F'{path}/snapshot.db')
     c = conn.cursor()
 
     c.execute('''SELECT * FROM SNAPSHOT WHERE champion = ?''', (champ,))
@@ -90,3 +90,30 @@ def get_champ_from_snapshot(champ):
     conn.commit()
     conn.close()
     return champStats
+
+
+def update_premium_status_for_email(email, newStatus):
+    path = os.path.join(os.path.dirname(__file__))
+    conn = sqlite3.connect(F'{path}/users.db')
+    c = conn.cursor()
+
+    c.execute('''UPDATE USERS SET hasPremium =? WHERE userEmail =?''',
+              (newStatus, email))
+    champStats = c.fetchone()
+
+    conn.commit()
+    conn.close()
+    return
+
+
+def user_has_premium(email):
+    path = os.path.join(os.path.dirname(__file__))
+    conn = sqlite3.connect(F'{path}/users.db')
+    c = conn.cursor()
+
+    c.execute('''SELECT * FROM USERS WHERE userEmail =?''', (email,))
+    userObj = c.fetchone()
+
+    conn.commit()
+    conn.close()
+    return userObj[3] == 1

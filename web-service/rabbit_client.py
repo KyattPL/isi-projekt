@@ -133,7 +133,9 @@ class RabbitMQClient:
             await message.reject(requeue=False)
             return
 
-        self.response = msg_json
+        premiumStatus = 1 if msg_json['status'] == 'COMPLETED' else 0
+        db.update_premium_status_for_email(msg_json['email'], premiumStatus)
+
         await message.ack()
 
     async def send_data_to_payment_service(self, data):
