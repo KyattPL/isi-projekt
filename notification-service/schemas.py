@@ -15,7 +15,7 @@ notification_service_request_schema = {
                 }
             },
             "then": {
-                "required": ["userEmail", "userCredentials", "paymentStatus"]
+                "required": ["userEmail", "paymentStatus"]
             }   
         },
         {

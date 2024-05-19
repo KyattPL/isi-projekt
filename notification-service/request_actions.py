@@ -32,9 +32,9 @@ class SendPaymentStatus(ActionStrategy):
     async def execute(self, msg_json):
         params = [msg_json['userEmail'], msg_json['userCredentials'], msg_json['paymentStatus']]
         receiverMail = params[0]
-        mailBody = F"Hello {params[1]}, the status of your payment is as follows: {params[2]}."
+        mailBody = F"Hello, the status of your payment is as follows: {params[1]}."
         mailSubject = "Payment status"
-        await sendMail(receiverMail, mailBody, mailSubject, userCredentials=params[1])
+        await sendMail(receiverMail, mailBody, mailSubject, userCredentials="None")
 
 
 class SendPremiumConfirmation(ActionStrategy):
