@@ -132,8 +132,6 @@ async def google_auth_callback(request: Request, rabbit_client_instance: RabbitM
     else:
         name = results['names'][0]['displayName']
         email = results['emailAddresses'][0]['value']
-        print(f"Name: {name}")
-        print(f"Email: {email}")
 
         sessions[email] = {"name": name, "email": email,
                            "last_activity": datetime.now()}
@@ -143,10 +141,18 @@ async def google_auth_callback(request: Request, rabbit_client_instance: RabbitM
         if userObj is None:
             db.insert_user_into_db(email, name)
             hasPremium = False
-            rabbit_client_instance.send_data_to_notification_service(
-                {"action": "NEW_USER", "email": email})
+            print(f"________________________________________________\n")
+            print(f"email: {email}\n")
+            print(f"name: {name}\n")
+            print(f"hasPremium: {userObj}\n")
+            print(f"________________________________________________\n")
+            await rabbit_client_instance.send_data_to_notification_service(
+                {"action": "SEND_NEW_USER_GREETINGS", "userEmail": email, "userCredentials": name})
 
-        hasPremium = False if userObj[3] == 0 else True
+        if userObj != None and userObj[3] == 0:
+            hasPremium = False
+        else:
+            hasPremium = True
 
         html_content = f"""
         <html>

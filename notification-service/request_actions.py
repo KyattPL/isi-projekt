@@ -20,6 +20,7 @@ SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 class ActionType(Enum):
     SEND_PAYMENT_STATUS = "SEND_PAYMENT_STATUS"
     SEND_PREMIUM_CONFIRMATION = "SEND_PREMIUM_CONFIRMATION"
+    SEND_NEW_USER_GREETINGS = "SEND_NEW_USER_GREETINGS"
 
 
 class ActionStrategy:
@@ -43,6 +44,17 @@ class SendPremiumConfirmation(ActionStrategy):
         mailBody = F"Hello {params[1]}, the payment process has been completed and you have received the premium membership."
         mailSubject = "Premium membership confirmation"
         await sendMail(receiverMail, mailBody, mailSubject, userCredentials=params[1])
+
+
+class SendNewUserGreetings(ActionStrategy):
+    async def execute(self, msg_json):
+        params = [msg_json['userEmail'], msg_json['userCredentials']]
+        receiverMail = params[0]
+        userCredentials = params[1]
+        mailBody = F"Welcome to our application {userCredentials}! We're excited to have you onboard!"
+        mailSubject = "Welcome to Clone.gg"
+        await sendMail(receiverMail, mailBody, mailSubject, userCredentials)
+
 
 async def insert_notification_into_db(userEmail, userCredentials, messageSubject, messageBody):
 
@@ -89,7 +101,6 @@ async def sendMail(receiverMail, mailBody, mailSubject, userCredentials):
 
         # Encode the message
         raw_message = base64.urlsafe_b64encode(mailMessage.as_bytes()).decode("utf-8")
-        #print(F"Message: {raw_message}")
 
         # Send the message
         send_message = service.users().messages().send(userId="me", body={"raw": raw_message}).execute()

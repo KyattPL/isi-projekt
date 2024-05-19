@@ -55,6 +55,7 @@ class RabbitMQClient:
         strategies = {
             ActionType.SEND_PAYMENT_STATUS: RA.SendPaymentStatus(),
             ActionType.SEND_PREMIUM_CONFIRMATION: RA.SendPremiumConfirmation(),
+            ActionType.SEND_NEW_USER_GREETINGS: RA.SendNewUserGreetings(),
         }
         test = strategies.get(action, None)
         return test

@@ -1,7 +1,7 @@
 notification_service_request_schema = {
     "type": "object",
     "properties": {
-        "action": {"enum": ["SEND_PAYMENT_STATUS", "SEND_PREMIUM_CONFIRMATION"]},
+        "action": {"enum": ["SEND_PAYMENT_STATUS", "SEND_PREMIUM_CONFIRMATION", "SEND_NEW_USER_GREETINGS"]},
         "userEmail": {"type": "string"},
         "userCredentials": {"type": "string"},
         "paymentStatus": {"type": "string"}
@@ -22,6 +22,16 @@ notification_service_request_schema = {
             "if": {
                 "properties": {
                     "action": {"const": "SEND_PREMIUM_CONFIRMATION"}
+                }
+            },
+            "then": {
+                "required": ["userEmail", "userCredentials"]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": {"const": "NEW_USER"}
                 }
             },
             "then": {
