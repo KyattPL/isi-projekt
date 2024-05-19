@@ -137,7 +137,7 @@ class RabbitMQClient:
                 print(order_status)
                 # Wyślij wiadomość PENDING do notifications
                 if (order_status == 'PENDING') and not processing_done:
-                    await self.send_data_to_queue({"status": order_status, "email": email}, "notifications.request")
+                    await self.send_data_to_queue({"status": order_status, "email": email}, "notification.request")
                     processing_done = True
                     print(order_status)
                 await asyncio.sleep(1)
@@ -145,12 +145,12 @@ class RabbitMQClient:
             if (order_status == 'CANCELED'):
                 # Wyślij wiadomość CANCELED do web i notifications
                 await self.send_data_to_queue({"status": order_status, "email": email}, "payment.response.web")
-                await self.send_data_to_queue({"action": "SEND_PAYMENT_STATUS", "userEmail": email, "paymentStatus": order_status}, "notifications.request")
+                await self.send_data_to_queue({"action": "SEND_PAYMENT_STATUS", "userEmail": email, "paymentStatus": order_status}, "notification.request")
                 print(order_status)
             elif (order_status == 'COMPLETED'):
                 # Wyświj wiadomość COMPLETED do web i notifications
                 await self.send_data_to_queue({"status": order_status, "email": email}, "payment.response.web")
-                await self.send_data_to_queue({"action": "SEND_PAYMENT_STATUS", "userEmail": email, "paymentStatus": order_status}, "notifications.request")
+                await self.send_data_to_queue({"action": "SEND_PAYMENT_STATUS", "userEmail": email, "paymentStatus": order_status}, "notification.request")
                 print(order_status)
 
             return order_status

@@ -17,6 +17,7 @@ import database as db
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 
+
 class ActionType(Enum):
     SEND_PAYMENT_STATUS = "SEND_PAYMENT_STATUS"
     SEND_PREMIUM_CONFIRMATION = "SEND_PREMIUM_CONFIRMATION"
@@ -30,7 +31,7 @@ class ActionStrategy:
 
 class SendPaymentStatus(ActionStrategy):
     async def execute(self, msg_json):
-        params = [msg_json['userEmail'], msg_json['userCredentials'], msg_json['paymentStatus']]
+        params = [msg_json['userEmail'], msg_json['paymentStatus']]
         receiverMail = params[0]
         mailBody = F"Hello, the status of your payment is as follows: {params[1]}."
         mailSubject = "Payment status"
@@ -39,11 +40,11 @@ class SendPaymentStatus(ActionStrategy):
 
 class SendPremiumConfirmation(ActionStrategy):
     async def execute(self, msg_json):
-        params = [msg_json['userEmail'], msg_json['userCredentials']]
+        params = [msg_json['userEmail']]
         receiverMail = params[0]
-        mailBody = F"Hello {params[1]}, the payment process has been completed and you have received the premium membership."
+        mailBody = F"Hello, the payment process has been completed and you have received the premium membership."
         mailSubject = "Premium membership confirmation"
-        await sendMail(receiverMail, mailBody, mailSubject, userCredentials=params[1])
+        await sendMail(receiverMail, mailBody, mailSubject, userCredentials="None")
 
 
 class SendNewUserGreetings(ActionStrategy):
@@ -58,17 +59,19 @@ class SendNewUserGreetings(ActionStrategy):
 
 async def insert_notification_into_db(userEmail, userCredentials, messageSubject, messageBody):
 
-        db.create_notifications_table()
+    db.create_notifications_table()
 
-        print(userEmail, userCredentials, messageSubject, messageBody)
+    print(userEmail, userCredentials, messageSubject, messageBody)
 
-        db.insert_notification(userEmail, userCredentials, messageSubject, messageBody)
+    db.insert_notification(userEmail, userCredentials,
+                           messageSubject, messageBody)
 
 
 async def sendMail(receiverMail, mailBody, mailSubject, userCredentials):
     creds = None
     # Construct the path to the credentials.json file
-    credentials_path = os.path.join(os.path.dirname(__file__), "credentials.json")
+    credentials_path = os.path.join(
+        os.path.dirname(__file__), "credentials.json")
     # Construct the path to the token.json file
     token_path = os.path.join(os.path.dirname(__file__), "token.json")
 
@@ -100,10 +103,12 @@ async def sendMail(receiverMail, mailBody, mailSubject, userCredentials):
         mailMessage["subject"] = mailSubject
 
         # Encode the message
-        raw_message = base64.urlsafe_b64encode(mailMessage.as_bytes()).decode("utf-8")
+        raw_message = base64.urlsafe_b64encode(
+            mailMessage.as_bytes()).decode("utf-8")
 
         # Send the message
-        send_message = service.users().messages().send(userId="me", body={"raw": raw_message}).execute()
+        send_message = service.users().messages().send(
+            userId="me", body={"raw": raw_message}).execute()
         print(F"Message Id: {send_message['id']}")
         await insert_notification_into_db(receiverMail, userCredentials, mailSubject, mailBody)
     except HttpError as error:

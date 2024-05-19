@@ -16,7 +16,7 @@ notification_service_request_schema = {
             },
             "then": {
                 "required": ["userEmail", "paymentStatus"]
-            }   
+            }
         },
         {
             "if": {
@@ -25,7 +25,7 @@ notification_service_request_schema = {
                 }
             },
             "then": {
-                "required": ["userEmail", "userCredentials"]
+                "required": ["userEmail"]
             }
         },
         {
